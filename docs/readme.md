@@ -3,7 +3,7 @@ home: true
 icon: home
 title: 「编程指南」计算机全栈学习指南
 heroImage: /logo.png
-heroText: CoderMast编程指南
+heroText: 友人的编程指南
 tagline: 「编程指南」包含完整的编程学习指南、计算机基础、数据库、项目实战、面试经验等知识教程，涵盖了大部分程序员所需要掌握的核心知识！
 lang : zh-CN
 bgImage: https://www.codermast.com/assets/bg/6-light.svg

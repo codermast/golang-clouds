@@ -6,8 +6,6 @@ export default hopeTheme({
 
   breadcrumb: false,
 
-  // 标题深度
-  headerDepth: 2,
   // ico图标
   favicon: "/favicon.ico",
   // 顶部导航栏
@@ -39,9 +37,6 @@ export default hopeTheme({
   // 配置深色模式
   darkmode: "switch",
 
-  // 配置图标库
-  iconAssets: "iconify",
-
   logo: "/logo.png",
 
   // 文档仓库地址
@@ -53,7 +48,74 @@ export default hopeTheme({
   // 文档存放的分值
   docsBranch: "main",
 
+  // markdown 增强（根级别配置）
+  markdown: {
+    align: true,
+    attrs: true,
+    chartjs: true,
+    codeTabs: true,
+    component: true,
+    demo: true,
+    echarts: true,
+    figure: true,
+    flowchart: true,
+    gfm: true,
+    imgLazyload: true,
+    imgSize: true,
+    include: true,
+    mark: true,
+    math: true,
+    mermaid: true,
+    playground: {
+      presets: ["ts", "vue"],
+    },
+    revealjs: {
+      plugins: ["highlight", "math", "search", "notes", "zoom"],
+      themes: [
+        "auto",
+        "beige",
+        "black",
+        "blood",
+        "league",
+        "moon",
+        "night",
+        "serif",
+        "simple",
+        "sky",
+        "solarized",
+        "white",
+      ],
+    },
+    stylize: [
+      {
+        matcher: "Recommended",
+        replacer: ({ tag }) => {
+          if (tag === "em")
+            return {
+              tag: "Badge",
+              attrs: { type: "tip" },
+              content: "Recommended",
+            };
+        },
+      },
+    ],
+    sub: true,
+    sup: true,
+    tabs: true,
+    vPre: true,
+    vuePlayground: true,
+  },
+
   plugins: {
+    // 图标资源
+    icon: {
+      assets: "iconify",
+    },
+
+    // 搜索插件
+    slimsearch: {
+      indexContent: true,
+    },
 
     components: {
       components: [
@@ -71,13 +133,6 @@ export default hopeTheme({
       ],
     },
 
-    searchPro: {
-      hotKeys: [
-        { key: "k", ctrl: true },
-        { key: "k", meta: true },
-      ],
-    },
-
     // 配置评论框
     comment: {
       provider: "Giscus",
@@ -85,65 +140,6 @@ export default hopeTheme({
       repoId: "R_kgDOIetRIw",
       category: "Announcements",
       categoryId: "DIC_kwDOIetRI84CVg1f",
-    },
-
-    // markdown增强
-    mdEnhance: {
-      // 启动自定义对齐
-      align: true,
-      attrs: true,
-      chart: true,
-      codetabs: true,
-      component: true,
-      demo: true,
-      echarts: true,
-      figure: true,
-      flowchart: true,
-      gfm: true,
-      imgLazyload: true,
-      imgSize: true,
-      include: true,
-      katex: true,
-      mark: true,
-      mermaid: true,
-      playground: {
-        presets: ["ts", "vue"],
-      },
-      revealJs: {
-        plugins: ["highlight", "math", "search", "notes", "zoom"],
-        themes: [
-          "auto",
-          "beige",
-          "black",
-          "blood",
-          "league",
-          "moon",
-          "night",
-          "serif",
-          "simple",
-          "sky",
-          "solarized",
-          "white",
-        ],
-      },
-      stylize: [
-        {
-          matcher: "Recommended",
-          replacer: ({ tag }) => {
-            if (tag === "em")
-              return {
-                tag: "Badge",
-                attrs: { type: "tip" },
-                content: "Recommended",
-              };
-          },
-        },
-      ],
-      sub: true,
-      sup: true,
-      tabs: true,
-      vPre: true,
-      vuePlayground: true,
     },
   },
 }, {

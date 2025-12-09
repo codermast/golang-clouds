@@ -1,12 +1,18 @@
 import theme from "./theme.js";
 
 import { defineUserConfig } from "vuepress";
-import { viteBundler } from '@vuepress/bundler-vite'
-
+import { viteBundler } from "@vuepress/bundler-vite";
 
 export default defineUserConfig({
   base: "/",
   lang: "zh-CN",
+  locales: {
+    "/": {
+      lang: "zh-CN",
+      title: "友人的编程指南",
+      description: "CoderMast编程指南，深入学习编程的技术指南，早日成为编码大师！",
+    },
+  },
   title: "友人的编程指南",
   description: "CoderMast编程指南，深入学习编程的技术指南，早日成为编码大师！。",
   head: [

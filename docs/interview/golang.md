@@ -1122,3 +1122,155 @@ top, list, web, svg
 - [ ] Work Stealing 算法
 - [ ] 混合写屏障原理
 - [ ] Goroutine 泄漏检测
+
+---
+
+## 九、项目实战
+
+### Q56: Gin 中间件的实现原理
+
+**洋葱模型，基于责任链模式：**
+
+```go
+type Context struct {
+    handlers HandlersChain  // []HandlerFunc
+    index    int8           // 当前执行的 handler 索引
+}
+
+func (c *Context) Next() {
+    c.index++
+    for c.index < int8(len(c.handlers)) {
+        c.handlers[c.index](c)
+        c.index++
+    }
+}
+```
+
+**执行流程：**
+```
+请求 → Middleware1 → Middleware2 → Handler → Middleware2 → Middleware1 → 响应
+```
+
+---
+
+### Q57: GORM 的 Hook 机制
+
+```go
+// 创建前
+func (u *User) BeforeCreate(tx *gorm.DB) error {
+    u.Password = hashPassword(u.Password)
+    return nil
+}
+
+// 更新前
+func (u *User) BeforeUpdate(tx *gorm.DB) error {
+    if tx.Statement.Changed("Password") {
+        u.Password = hashPassword(u.Password)
+    }
+    return nil
+}
+```
+
+**Hook 顺序：**
+- 创建：BeforeSave → BeforeCreate → 插入 → AfterCreate → AfterSave
+- 更新：BeforeSave → BeforeUpdate → 更新 → AfterUpdate → AfterSave
+
+---
+
+### Q58: 如何实现分布式锁
+
+**Redis 分布式锁：**
+
+```go
+// 加锁
+func TryLock(ctx context.Context, key, value string, ttl time.Duration) bool {
+    ok, _ := rdb.SetNX(ctx, key, value, ttl).Result()
+    return ok
+}
+
+// 解锁（Lua 保证原子性）
+func Unlock(ctx context.Context, key, value string) bool {
+    script := redis.NewScript(`
+        if redis.call('get', KEYS[1]) == ARGV[1] then
+            return redis.call('del', KEYS[1])
+        end
+        return 0
+    `)
+    result, _ := script.Run(ctx, rdb, []string{key}, value).Int()
+    return result == 1
+}
+```
+
+---
+
+### Q59: 缓存穿透、击穿、雪崩如何解决
+
+| 问题 | 原因 | 解决方案 |
+| :--- | :--- | :--- |
+| 穿透 | 查询不存在的数据 | 布隆过滤器、缓存空值 |
+| 击穿 | 热点 key 过期 | 互斥锁、永不过期 + 异步更新 |
+| 雪崩 | 大量 key 同时过期 | 随机过期时间、多级缓存 |
+
+---
+
+### Q60: 如何实现服务熔断
+
+```go
+import "github.com/sony/gobreaker"
+
+cb := gobreaker.NewCircuitBreaker(gobreaker.Settings{
+    Name:        "my-service",
+    MaxRequests: 3,
+    Timeout:     30 * time.Second,
+    ReadyToTrip: func(counts gobreaker.Counts) bool {
+        failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
+        return counts.Requests >= 3 && failureRatio >= 0.6
+    },
+})
+
+result, err := cb.Execute(func() (interface{}, error) {
+    return doRequest()
+})
+```
+
+**熔断器状态：** Closed（正常）→ Open（熔断）→ Half-Open（测试）
+
+---
+
+### Q61: gRPC 和 HTTP 的区别
+
+| 特性 | gRPC | HTTP/REST |
+| :--- | :--- | :--- |
+| 协议 | HTTP/2 | HTTP/1.1 |
+| 序列化 | Protobuf（二进制） | JSON（文本） |
+| 性能 | 高 | 较低 |
+| 流式传输 | 原生支持 | 需 WebSocket |
+| 浏览器 | 需 grpc-web | 原生支持 |
+
+**选择：** 内部服务用 gRPC，对外 API 用 REST
+
+---
+
+### Q62: 如何保证消息不丢失
+
+**三个环节：**
+1. **生产者确认**：等待 broker ACK
+2. **MQ 持久化**：消息落盘
+3. **消费者确认**：手动 ACK
+
+**幂等性处理：**
+
+```go
+func processOrder(orderID string) error {
+    if processed, _ := redis.Get("processed:" + orderID); processed != "" {
+        return nil  // 已处理
+    }
+    
+    if err := doProcess(orderID); err != nil {
+        return err
+    }
+    
+    redis.Set("processed:"+orderID, "1", 24*time.Hour)
+    return nil
+}
+```

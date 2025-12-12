@@ -1,5 +1,6 @@
 ---
-index : false
+index: false
+icon: logos:spring-icon
 ---
 # Spring 系列
 

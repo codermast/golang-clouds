@@ -1,7 +1,8 @@
 ---
-index : false
-dir : 
-    link : true
+index: false
+icon: mdi:design
+dir:
+    link: true
 ---
 
 # 设计模式

@@ -1,7 +1,8 @@
 ---
-index : false
-dir : 
-    link : true
+index: false
+icon: mdi:head-lightbulb
+dir:
+    link: true
 ---
 
 # 开发思想

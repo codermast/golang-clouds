@@ -1,7 +1,8 @@
 ---
-index : false
-dir : 
-    link : true
+index: false
+icon: mdi:transit-connection-variant
+dir:
+    link: true
 ---
 # 行为型模式
 

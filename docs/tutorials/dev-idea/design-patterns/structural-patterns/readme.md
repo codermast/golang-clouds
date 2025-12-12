@@ -1,7 +1,8 @@
 ---
-index : false
-dir : 
-    link : true
+index: false
+icon: mdi:puzzle
+dir:
+    link: true
 ---
 # 结构型模式
 

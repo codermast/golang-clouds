@@ -1,228 +1,77 @@
-## 项目介绍
+# CoderMast 编程桅杆
 
-<div align=center><img  src="assets/readme/2024-04-05-06-49-03.png" /></div>
-
-&emsp;&emsp;「编程桅杆」包含完整的编程学习指南、计算机基础、数据库、项目实战、面试经验等知识教程，涵盖了大部分程序员所需要掌握的核心知识！ 项目内记录了本人学习过程中所总结的一些学习经验，其中包括Java、MySQL、Redis、Spring、SpringBoot、Kafka、Mybatis、Mybatis-plus、Docker、Linux、ElasticSearch、计算机网络、数据结构、操作系统、计算机组成原理等知识。
-
-
-## 项目地址
-
-<div align=center><a target="_blank" href="https://www.codermast.com/?github">www.codermast.com</a></div>
-
-## 项目内容
-
-### Java核心
-
-<div class="vp-catalog-wrapper"><!---->
-    <ul class="vp-catalogs">
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/jdk-env-path.html">Java核心 - 环境认识及搭建</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/basic-grammar.html">Java核心 - 基础概念及语法</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/class-and-object.html">Java核心 - 面向对象</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/exception.html">Java核心 - 异常</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/reflection.html">Java核心 - 反射</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/generics.html">Java核心 - 泛型</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/java/core/annotation.html">Java核心 - 注解</a></div>
-        </li>
-    </ul>
+<div align="center">
+  <img src="assets/readme/2024-04-05-06-49-03.png" alt="编程桅杆" />
 </div>
 
-### Java集合
+「编程桅杆」是一个完整的编程学习指南，包含技术教程、面试宝典、项目实战等内容，涵盖程序员所需掌握的核心知识！
 
-### JavaIO
+## 🌐 在线访问
 
-### JVM
-
-### MySQL
-
-<div class="vp-catalog-wrapper"><!---->
-    <ul class="vp-catalogs">
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-base.html">MySQL基础 - 基础概念</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/sql-general-syntax.html">MySQL基础 - SQL基础语法</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/function-base.html">MySQL基础 - 函数</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/constraint.html">MySQL基础 - 约束</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/multi-table-query.html">MySQL基础 - 多表查询</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/transaction.html">MySQL基础 - 事务</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-index.html">MySQL进阶 - 索引</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/sql-perfomance-analysis.html">MySQL进阶 - SQL性能分析</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/sql-optimize.html">MySQL进阶 - SQL优化</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-view.html">MySQL进阶 - 视图</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/store-procedure.html">MySQL进阶 - 存储过程</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-trigger.html">MySQL进阶 - 触发器</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/innodb-engine.html">MySQL进阶 - InnoDB存储引擎</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-lock.html">MySQL进阶 - 锁</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/innodb-mvcc.html">MySQL进阶 - MVCC多版本并发控制</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/storage-engine.html">MySQL进阶 - 存储引擎</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-manage.html">MySQL进阶 - MySQL管理</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/dividing-databases-tables.html">MySQL运维 - 分库分表</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/mysql-log.html">MySQL运维 - 日志</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/read-write-separation.html">MySQL运维 - 读写分离</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                   target="_blank" href="https://www.codermast.com/database/mysql/master-slave-replication.html">MySQL运维 - 主从复制</a></div>
-        </li>
-    </ul>
+<div align="center">
+  <a target="_blank" href="https://www.codermast.com/?github">
+    <strong>www.codermast.com</strong>
+  </a>
 </div>
 
-### Docker
+## 📚 内容导航
 
-<div class="vp-catalog-wrapper"><!---->
-    <ul class="vp-catalogs">
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-introduce.html">Docker - 简介</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-install.html">Docker - 安装</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-helloworld.html">Docker - HelloWorld</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-basic.html">Docker - 入门基础</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-object.html">Docker - 镜像、容器、仓库</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-web-containers.html">Docker - WEB应用实例</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-container-connection.html">Docker - 容器互联</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-warehouse.html">Docker - 仓库管理</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-dockerfile.html">Docker - Dockerfile</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/docker/docker-compose.html">Docker - Compose</a></div>
-        </li>
-    </ul>
-</div>
+### 技术教程
 
-### Git
+| 模块 | 内容 |
+| :--- | :--- |
+| **Java** | 核心知识、集合框架、并发编程、IO框架、JVM虚拟机 |
+| **Golang** | 核心语法、进阶特性、Web开发、分布式、工程化 |
+| **Spring系列** | Spring 6、Spring MVC、Spring Boot、Spring Cloud |
+| **数据库** | MySQL、Redis、MongoDB、ElasticSearch |
+| **消息队列** | RocketMQ、RabbitMQ、Kafka |
+| **云原生** | Docker、Kubernetes、Linux、Nginx |
+| **前端** | Vue3 入门教程 |
+| **开发工具** | Docker、Git、IDEA、Maven、Homebrew |
+| **设计模式** | 23种设计模式详解 |
 
-<div class="vp-catalog-wrapper"><!---->
-    <ul class="vp-catalogs">
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-introduce-install.html">Git 介绍和安装</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-workspace-index-repo.html">Git 工作原理</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-basic-operations.html">Git 创建版本库</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-content-operations.html">Git 仓库内容操作</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-branch-manage.html">Git 分支管理</a></div>
-        </li>
-        <li class="vp-catalog">
-            <div class="vp-catalog-child-title"><a class="route-link vp-catalog-title"
-                    target="_blank" href="https://www.codermast.com/dev-tools/git/git-remote-manage.html">Git 远程管理</a></div>
-        </li>
-    </ul>
-</div>
+### 面试宝典
 
-## Star趋势
+| 技术栈 | 内容 |
+| :--- | :--- |
+| **Golang** | 55道高频面试题，涵盖基础、并发、GMP、内存、GC |
+| **Java** | 核心知识点面试题 |
+| **MySQL** | 数据库面试高频考点 |
+| **Redis** | 缓存相关面试题 |
+| **RocketMQ** | 消息队列面试题 |
 
-> 虽然项目的 Star 可能非常非常少，但也足以鼓励我继续坚持下去！
+### 项目实战
+
+- 苍穹外卖
+
+## 🚀 快速开始
+
+```bash
+# 克隆项目
+git clone https://github.com/codermast/codermast-notes.git
+
+# 安装依赖
+npm install
+
+# 本地运行
+npm run docs:dev
+
+# 构建部署
+npm run docs:build
+```
+
+## 🛠️ 技术栈
+
+- **框架**: VuePress 2
+- **主题**: vuepress-theme-hope
+- **部署**: GitHub Pages
+
+## ⭐ Star 趋势
+
+> 如果这个项目对你有帮助，欢迎点个 Star ⭐ 支持一下！
 
 [![Star History Chart](https://api.star-history.com/svg?repos=codermast/codermast-notes&type=Date)](https://star-history.com/#codermast/codermast-notes&Date)
+
+## 📝 License
+
+本项目采用 [CC BY-NC-SA 4.0](./LICENSE) 许可协议。

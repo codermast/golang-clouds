@@ -1,7 +1,8 @@
 ---
-index : false
-dir :
-    link : true
+index: false
+icon: logos:vue
+dir:
+    link: true
 ---
 # Vue3 入门教程
 

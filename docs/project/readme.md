@@ -1,7 +1,8 @@
 ---
-index : false
-dir : 
-    link : true
+index: false
+icon: ph:planet-bold
+dir:
+    link: true
 ---
 
 # 项目篇

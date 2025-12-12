@@ -17,7 +17,7 @@ https://www.bilibili.com/video/BV1TP411v7v6/?p=5
 
 点击上面的前端资料下载链接，即可下载。下载之后解压，解压完成以后的文件如下。
 
-![](../../../assets/FrontEnd-Dev-Build/2024-03-03-12-33-06.png)
+![](/assets/project/FrontEnd-Dev-Build/2024-03-03-12-33-06.png)
 
 2. 安装 Nginx 服务
 
@@ -148,4 +148,4 @@ brew services start nginx
 
 访问 localhost:80 即可，默认为 80 端口，也可以直接访问 localhost
 
-![](../../../assets/readme/2024-03-03-11-41-05.png)
+![](/assets/project/readme/2024-03-03-11-41-05.png)

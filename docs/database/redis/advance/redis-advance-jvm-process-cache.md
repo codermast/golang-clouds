@@ -10,14 +10,14 @@ order : 17
 - 请求要经过 Tomcat 处理，Tomcat 的性能成为整个系统的瓶颈
 - Redis 缓存失效时，会对数据库产生冲击
 
-![](../../../../assets/redis-advance-multi-level-cache/2023-06-29-17-58-08.png)
+![](/assets/database/redis/redis-advance-multi-level-cache/2023-06-29-17-58-08.png)
 
 
 **多级缓存方案**
 
 多级缓存就是充分利用请求处理的每个环节，分别添加缓存，减轻 Tomcat 压力，提升服务性能：
 
-![](../../../../assets/redis-advance-multi-level-cache/2023-06-29-18-03-03.png)
+![](/assets/database/redis/redis-advance-multi-level-cache/2023-06-29-18-03-03.png)
 
 ## 本地进程缓存
 
@@ -37,7 +37,7 @@ Caffeine 是一个基于 Java8 开发的，提供了近乎最佳命中率的高�
 
 Github 地址：https://github.com/ben-manes/caffeine
 
-![](../../../../assets/redis-advance-jvm-process-cache/2023-08-26-19-50-42.png)
+![](/assets/database/redis/redis-advance-jvm-process-cache/2023-08-26-19-50-42.png)
 
 ## Caffeine
 

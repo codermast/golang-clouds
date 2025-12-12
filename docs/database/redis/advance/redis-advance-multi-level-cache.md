@@ -75,7 +75,7 @@ yum install -y openresty-opm
 
 默认情况下，OpenResty安装的目录是：/usr/local/openresty
 
-![](../../../../assets/redis-advance-multi-level-cache/2023-08-27-09-32-10.png)
+![](/assets/database/redis/redis-advance-multi-level-cache/2023-08-27-09-32-10.png)
 
 看到里面的nginx目录了吗，OpenResty就是在Nginx基础上集成了一些Lua模块。
 
@@ -109,7 +109,7 @@ source /etc/profile
 
 OpenResty底层是基于Nginx的，查看OpenResty目录的nginx目录，结构与windows中安装的nginx基本一致：
 
-![](../../../../assets/redis-advance-multi-level-cache/2023-08-27-09-36-04.png)
+![](/assets/database/redis/redis-advance-multi-level-cache/2023-08-27-09-36-04.png)
 
 所以运行方式与nginx基本一致：
 
@@ -306,7 +306,7 @@ OpenResty 提供了各种 API 用来获取不同类型的请求参数：
 
 |参数格式|参数示例|参数解析代码示例|
 |:---:|:---:|:---:|
-|路径占位符|/item/1001|![](../../../../assets/redis-advance-multi-level-cache/2023-08-27-11-37-02.png)|
+|路径占位符|/item/1001|![](/assets/database/redis/redis-advance-multi-level-cache/2023-08-27-11-37-02.png)|
 |请求头|id:1001|
 |Get请求参数|?id=1001|
 |Post表单参数|id=1001|

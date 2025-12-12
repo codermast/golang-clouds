@@ -6,7 +6,7 @@ dir :
 ---
 # Docker 学习笔记
 
-![](../../../assets/docker-install/2024-01-09-11-18-04.png)
+![](/assets/cloud/docker/docker-install/2024-01-09-11-18-04.png)
 
 ## 目录
 

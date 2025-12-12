@@ -13,7 +13,7 @@ slave 节点宕机恢复以后可以找 master 节点同步数据，那么 maste
 
 Redis 提供了哨兵（Sentinel）机制来实现主从集群的自动故障恢复。哨兵的结构和作用如下：
 
-![](../../../../assets/redis-advance-sentinel/2023-06-26-23-47-32.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-26-23-47-32.png)
 
 - **监控**：Sentinel 会不断检查您的 master 和 slave 是否按照预期工作
 - **自动故障恢复**：如果 master 故障，Sentinel 会将一个 slave 提升为 master 。当故障实例恢复后也以新的 master 为主
@@ -27,7 +27,7 @@ Sentinel 基于心跳机制监测服务状态，每隔 1 秒向集群的每个�
 
 - 客观下线：若超过指定数量（quorum）的 sentinel 都认为该实例主观下线，则该实例客观下线。quorum 值最好超过 Sentinel 实例数量的一半。
 
-![](../../../../assets/redis-advance-sentinel/2023-06-26-23-56-21.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-26-23-56-21.png)
 
 
 ### 选举新的master
@@ -53,7 +53,7 @@ Sentinel 基于心跳机制监测服务状态，每隔 1 秒向集群的每个�
 
 3. 最后 sentinel 将故障节点标记为 slave，当故障节点恢复后会自动成为新的 master 的 slave 节点
 
-![](../../../../assets/redis-advance-sentinel/2023-06-27-00-11-32.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-27-00-11-32.png)
 
 ### 小结
 
@@ -159,23 +159,23 @@ redis-sentinel s3/sentinel.conf
 
 启动后：
  
-![](../../../../assets/redis-advance-sentinel/2023-06-27-21-40-52.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-27-21-40-52.png)
  
  
 ### 测试
  
 尝试让master节点7001宕机，查看sentinel日志：
  
-![](../../../../assets/redis-advance-sentinel/2023-06-27-21-41-08.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-27-21-41-08.png)
 
 查看7003的日志：
  
-![](../../../../assets/redis-advance-sentinel/2023-06-27-21-41-26.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-27-21-41-26.png)
  
 查看7002的日志：
  
 
-![](../../../../assets/redis-advance-sentinel/2023-06-27-21-42-13.png)
+![](/assets/database/redis/redis-advance-sentinel/2023-06-27-21-42-13.png)
 
 
 ## RedisTemplate连接集群

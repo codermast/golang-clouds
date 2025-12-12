@@ -71,20 +71,20 @@ struct __attribute__ ((__packed__)) sdshdr64 {
 
 例如，一个包含字符串`name`的sds结构如下：
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-16-13-30-51.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-16-13-30-51.png)
 
 ### 内存预分配
 
 SDS 之所以叫做动态字符串，是因为其具备动态扩容的能力，例如一个内容为 “hi” 的 SDS
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-16-13-35-41.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-16-13-35-41.png)
 
 假如我们要给 SDS 追加一段字符串 “,Amy” ，这里因为空间不够，需要申请新的内存空间：
 
 - 如果新字符串小于 1M ，则新空间扩展后字符串长度的两倍 + 1
 - 如果新字符串大于 1M ，则新空间为扩展后字符串长度 + 1M + 1。称为内存预分配
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-16-13-38-27.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-16-13-38-27.png)
 
 ::: tip 优点
 1. 获取字符串长度的时间复杂度为 O(1)
@@ -96,7 +96,7 @@ SDS 之所以叫做动态字符串，是因为其具备动态扩容的能力，�
 ### SDS小结
 Redis的字符串表示为 SDS ，而不是 C 字符串（以\0结尾的char*）， 它是 Redis 底层所使用的字符串表示，它被用在几乎所有的 Redis 模块中。可以看如下对比：
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-16-13-40-37.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-16-13-40-37.png)
 
 一般来说，SDS 除了保存数据库中的字符串值以外，SDS 还可以作为缓冲区（buffer）：包括 AOF 模块中的AOF缓冲区以及客户端状态中的输入缓冲区。
 
@@ -109,7 +109,7 @@ IntSet 是 Redis 中 Set 集合类型的一种实现方式，基于整数数组�
 
 为了方便查找，Redis 会将 IntSet 中所有的整数按照升序依次保存在 contents 数组中，结构图如下
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-16-16-33-35.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-16-16-33-35.png)
 
 现在数组中每个数字都保存在 int16_t 的范围内，因此采用的编码方式为 INTSET_ENC_INT16，每部分占用的字节大小为：
 
@@ -455,7 +455,7 @@ Dict的 rehash 并不是一次性完成的，如果 Dict 中包含数百万的 e
 
 ZipList 可以看做一种特殊的双端链表，由一系列特殊编码的连续内存块组成。可以在任意一端压入弹出操作，并且该操作的时间复杂度为 O(1)。
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-17-23-34-25.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-17-23-34-25.png)
 
 - <Badge text="zlbytes" type="tip" vertical="middle" />：uint32_t类型，4字节，记录整个压缩列表所占用的字节数。
 
@@ -471,7 +471,7 @@ ZipList 可以看做一种特殊的双端链表，由一系列特殊编码的连
 
 ZipList 中的Entry 并不像普通链表那样记录前后节点的指针，因为记录两个指针要占用 16 个字节，浪费内存，而是采用了如下的结构：
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-17-23-49-54.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-17-23-49-54.png)
 
 - <Badge text="previous_entry_length" type="tip" vertical="middle" />：前一节点的长度，占 1 个或者 5 个字节
     - 如果前一节点的长度小于 254 字节，则采用 1 个字节来保存和这个长度值
@@ -543,7 +543,7 @@ QuickList 这个结构是 Redis3.2 版本后新加的, 之前的版本是 list(�
 
 QuickList 是一种以 ZipList 为结点的双端链表结构。 从宏观上看，QuickList是一个双向链表，从微观上看，QuickList 的每一个节点都是一个 ZipList。
 
-![QuickList示意图](../../../../assets/redis-datastruct-underlying-implementation/2023-06-18-21-18-50.png)
+![QuickList示意图](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-18-21-18-50.png)
 
 ### 底层实现
 
@@ -684,9 +684,9 @@ SkipList （跳表）首先是链表，但是与传统的链表相比有些差�
 
 > 几级指针代表一次横跨几个节点。
 
-![](../../../../assets/redis-datastruct-underlying-implementation/2023-06-18-21-52-01.png)
+![](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-18-21-52-01.png)
 
-![SkipList内存结构](../../../../assets/redis-datastruct-underlying-implementation/2023-06-18-21-58-56.png)
+![SkipList内存结构](/assets/database/redis/redis-datastruct-underlying-implementation/2023-06-18-21-58-56.png)
 
 ### 底层实现
 

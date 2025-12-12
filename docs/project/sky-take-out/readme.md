@@ -6,7 +6,7 @@ dir :
 
 # 苍穹外卖
 
-![](../../../assets/readme/2024-03-03-11-41-05.png)
+![](/assets/project/readme/2024-03-03-11-41-05.png)
 
 ## 开始之前
 

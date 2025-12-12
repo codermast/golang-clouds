@@ -9,11 +9,11 @@ order : 12
 
 使用redis-cli客户端连接对应的Redis服务器后，按道理来讲`get name`这个指令的返回结果应该是 `codermast`
 
-![redis-cli客户端查看](../../../../assets/redistemplate-redis-serializer/2023-05-17-21-11-35.png)
+![redis-cli客户端查看](/assets/database/redis/redistemplate-redis-serializer/2023-05-17-21-11-35.png)
 
 返回的结果是无，这是为什么呢？使用可视化工具查看一下，看看到底数据是否存储在Redis服务器中。
 
-![使用可视化工具查看](../../../../assets/redistemplate-redis-serializer/2023-05-17-21-11-13.png)
+![使用可视化工具查看](/assets/database/redis/redistemplate-redis-serializer/2023-05-17-21-11-13.png)
 
 可以明显的看到，所存储的 key 之前加上了一段字符，但是从代码中看，存储的 key 为 "name"，但是实际存储的 key 是 `\xac\xed\x00\x05t\x00\x04name`，而且里面的 value 也做了同样的处理 `\xac\xed\x00\x05t\x00\x09codermast`
 
@@ -105,7 +105,7 @@ void testObject(){
 }
 ```
 
-![](../../../../assets/redistemplate-redis-serializer/2023-05-17-22-23-46.png)
+![](/assets/database/redis/redistemplate-redis-serializer/2023-05-17-22-23-46.png)
 
 虽然 JSON 的序列化方式可以满足我们存储对象的需求，为了在反序列化时知道对象的类型，将对象的类路径地址也序列化进 JSON 结果中，存入 Redis ，会带来额外的资源消耗。
 
@@ -115,7 +115,7 @@ void testObject(){
 
 为了节省内存空间，通常情况下不会使用 JSON 序列化器来处理 Value ，而是统一使用 String 序列化器，要求只能存储 String 类型的 key 和 value。当要存储 Java 对象时，手动完成对象的序列化和反序列化。
 
-![](../../../../assets/redistemplate-redis-serializer/2023-05-17-22-31-37.png)
+![](/assets/database/redis/redistemplate-redis-serializer/2023-05-17-22-31-37.png)
 
 Spring 默认提供了一个 StringRedisTemplate 类，它的 key 和 value 的序列化方式默认就是 String 方式，省去了我们自定义的 RedisTemplate 的过程。
 

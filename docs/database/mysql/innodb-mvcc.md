@@ -85,7 +85,7 @@ trx_id 代表的是当前的事务ID：
 - Repeatable Read : 仅在事务中第一次执行快照读时生成ReadView，后续复用该ReadView
 :::
 
-![MVCC-实现原理](../../../assets/innodb-mvcc/2023-05-14-22-22-21.png)
+![MVCC-实现原理](/assets/database/mysql/innodb-mvcc/2023-05-14-22-22-21.png)
 
 |特性|实现方式|
 |:---:|:---:|

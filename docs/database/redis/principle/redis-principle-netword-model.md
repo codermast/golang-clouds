@@ -52,13 +52,13 @@ ae_evport 实现方式中独有的API
 
 在ae.c 文件中可以选择使用那种实现方式。
 
-![](../../../../assets/redis-netword-model/2023-06-20-13-53-06.png)
+![](/assets/database/redis/redis-netword-model/2023-06-20-13-53-06.png)
 
 ## 单线程网络模型
 
 Redis 6 以前的网络模型都是单线程的，Redis 单线程网络模型的整个过程：
 
-![](../../../../assets/redis-netword-model/2023-06-22-15-47-54.png)
+![](/assets/database/redis/redis-netword-model/2023-06-22-15-47-54.png)
 
 
 - 在 aeApiPoll 时，会判断是**客户端**可读还是**服务端**可读，调用不同的处理器
@@ -79,7 +79,7 @@ Redis 6.0 版本中引入了多线程，目的是为了提高 IO 读写效率。
 
 通过对单线程网络模型的分析，主要的性能瓶颈在命令的读写处理和命令的响应输出两个方面。
 
-![](../../../../assets/redis-netword-model/2023-06-22-16-00-10.png)
+![](/assets/database/redis/redis-netword-model/2023-06-22-16-00-10.png)
 
 故Redis 在命令读处理和命令的响应两个部分引入了多线程。
 

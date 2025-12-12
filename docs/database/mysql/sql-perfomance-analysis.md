@@ -22,7 +22,7 @@ SHOW GLOBAL STATUS LIKE "Com_______";
 - Com_select：查询
 - Com_delete：删除
 
-![性能查询](../../../assets/mysql-index/2023-04-11-21-41-30.png)
+![性能查询](/assets/database/mysql/mysql-index/2023-04-11-21-41-30.png)
 
 我们可以根据这个数据来判断我们主要对那些操作进行优化。
 

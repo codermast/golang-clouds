@@ -6,7 +6,7 @@ dir :
 ---
 # Redis 数据库
 
-![Redis](../../../assets/readme/2023-05-16-15-28-44.png)
+![Redis](/assets/project/readme/2023-05-16-15-28-44.png)
 
 ## **目录**
 

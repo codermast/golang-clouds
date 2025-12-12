@@ -1,6 +1,6 @@
 # HomeBrew 教程
 
-![](../../assets/homebrew/2024-04-20-20-47-46.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-20-47-46.png)
 
 ## 介绍
 
@@ -69,7 +69,7 @@ brew search package-name
 brew search node
 ```
 
-![](../../assets/homebrew/2024-04-20-20-53-35.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-20-53-35.png)
 
 :::
 
@@ -87,7 +87,7 @@ brew install package-name
 brew install node
 ```
 
-![](../../assets/homebrew/2024-04-20-20-58-34.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-20-58-34.png)
 :::
 
 ### 查看已安装的软件包
@@ -96,7 +96,7 @@ brew install node
 brew list
 ```
 
-![](../../assets/homebrew/2024-04-20-20-59-47.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-20-59-47.png)
 
 ### 卸载软件包
 
@@ -112,7 +112,7 @@ brew uninstall package-name
 brew uninstall node
 ```
 
-![](../../assets/homebrew/2024-04-20-21-01-20.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-21-01-20.png)
 :::
 
 ### 查看软件包信息
@@ -131,7 +131,7 @@ brew info package-name
 ```sh
 brew info mysql
 ```
-![](../../assets/homebrew/2024-04-20-21-04-46.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-21-04-46.png)
 
 :::
 
@@ -149,7 +149,7 @@ brew cheanup
 brew --version
 ```
 
-![](../../assets/homebrew/2024-04-20-21-06-08.png)
+![](/assets/dev-tools/maven/homebrew/2024-04-20-21-06-08.png)
 
 ::: tip 
 查看一个软件包是否成功安装或成功配置的简单方式就是看能否查看其版本信息。

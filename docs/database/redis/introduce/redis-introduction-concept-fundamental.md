@@ -50,7 +50,7 @@ Redis特征
 ```sh
 yum install redis
 ```
-![Redis安装](../../../../assets/introduce-redis/2023-05-16-15-07-53.png)
+![Redis安装](/assets/database/redis/introduce-redis/2023-05-16-15-07-53.png)
 
 ::: note 其他安装
 除了上述安装方式以外还有很多安装方式，这里不再赘述。各种环境的安装方式，可以参考Redis官方的安装文档，地址：https://redis.io/docs/getting-started/installation/
@@ -62,7 +62,7 @@ yum install redis
 安装完Redis以后，在任意目录下输入`redis-server`命令即可启动Redis。
 
 
-![前台启动Redis](../../../../assets/introduce-redis/2023-05-16-15-13-08.png)
+![前台启动Redis](/assets/database/redis/introduce-redis/2023-05-16-15-13-08.png)
 
 前台启动Redis后，就是如上界面，此时命令终端会一直响应Redis服务，而无法进行其他操作，要进行其他指令操作时，则必须关闭Redis服务，很不方便，此时我们可以使用后台启动。
 
@@ -86,7 +86,7 @@ requirepass codermast
 ```sh
 redis-server redis.conf
 ```
-![Redis后台启动](../../../../assets/introduce-redis/2023-05-16-15-30-14.png)
+![Redis后台启动](/assets/database/redis/introduce-redis/2023-05-16-15-30-14.png)
 ### 开机启动
 
 1. 要实现开机启动，需要配置一个系统服务文件
@@ -141,7 +141,7 @@ redis-cli [options] [commonds]
 ```
 > 这里options为选项，commonds为命令，加上[]为可选项。这也是一种常见的文档编写规范。
 
-![Redis命令行连接](../../../../assets/introduce-redis/2023-05-16-15-30-50.png)
+![Redis命令行连接](/assets/database/redis/introduce-redis/2023-05-16-15-30-50.png)
 
 ::: warning 注意
 这里要注意的是，在使用redis-cli客户端连接redis服务时，需要保证redis服务是开启的，无论是在远程连接或者本地连接，这是新手阶段容易忽视的一点。
@@ -164,7 +164,7 @@ redis-cli [options] [commonds]
 费。
 > 笔者的电脑系统为macos，故就演示Mac环境下的图形化客户端，windows系统下的客户端种类很多，网络上的资源也很多，这里就不赘述。
 
-![Redis图形化客户端-Another redis desktop manager](../../../../assets/introduce-redis/2023-05-16-15-58-50.png)
+![Redis图形化客户端-Another redis desktop manager](/assets/database/redis/introduce-redis/2023-05-16-15-58-50.png)
 
 Github地址：https://github.com/qishibo/AnotherRedisDesktopManager/releases/tag/v1.5.9
 
@@ -181,5 +181,5 @@ Gitee地址：https://gitee.com/qishibo/AnotherRedisDesktopManager/releases/tag/
 
 几个Java语言的客户端展示。
 
-![Java语言的Redis客户端](../../../../assets/introduce-redis/2023-05-17-00-15-17.png)
+![Java语言的Redis客户端](/assets/database/redis/introduce-redis/2023-05-17-00-15-17.png)
 

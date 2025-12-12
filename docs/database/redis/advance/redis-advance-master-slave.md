@@ -14,7 +14,7 @@ order : 14
 我们搭建的主从集群结构如图：
  
 
-![](../../../../assets/redis-advance-master-slave/2023-06-24-20-37-26.png)
+![](/assets/database/redis/redis-advance-master-slave/2023-06-24-20-37-26.png)
 
 共包含三个节点，一个主节点，两个从节点。
  
@@ -197,7 +197,7 @@ info replication
 
 主从第一次同步是全量同步：
 
-![](../../../../assets/redis-advance-master-slave/2023-06-24-23-57-00.png)
+![](/assets/database/redis/redis-advance-master-slave/2023-06-24-23-57-00.png)
 
 master 是如何判断 slave 是不是第一次来同步数据？这里会用到两个很重要的概念：
 - Replication ID：简称replid，是数据集的标记，id 一致则说明是同一数据集。每一个 master 都有位移的 replid，slave 则会继承 master 节点的 replid。
@@ -221,7 +221,7 @@ master 是如何判断 slave 是不是第一次来同步数据？这里会用到
 
 主从第一次同步是全量同步，但如果 slave 冲去后同步，则执行增量同步。
 
-![](../../../../assets/redis-advance-master-slave/2023-06-25-00-15-30.png)
+![](/assets/database/redis/redis-advance-master-slave/2023-06-25-00-15-30.png)
 
 ::: warning 注意
 repl_baklog 大小有上限，写满以后会覆盖最早的数据。如果 slave 断开时间过久，导致数据被覆盖，则无法实现增量同步，只能再次全量同步。
@@ -234,7 +234,7 @@ repl_baklog 大小有上限，写满以后会覆盖最早的数据。如果 slav
 - 适当提高 repl_baklog 的大小，发现 slave 宕机时尽快实现故障恢复，尽可能避免全量同步
 - 限制一个 master 上的 slave 节点数量，如果实在是太多 slave，则可以采用 主-从-从链式结构，减少 master 压力
 
-![](../../../../assets/redis-advance-master-slave/2023-06-25-00-20-48.png)
+![](/assets/database/redis/redis-advance-master-slave/2023-06-25-00-20-48.png)
 
 ## 总结
 

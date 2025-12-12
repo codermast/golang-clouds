@@ -15,29 +15,29 @@ https://www.oracle.com/cn/java/technologies/downloads/
 
 1. 访问Oracle官网，找到该位置的Java
 
-![](../../../assets/jdk-env-path/2024-03-15-16-12-49.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-12-49.png)
 
 2. 点击此处的下载
 
-![](../../../assets/jdk-env-path/2024-03-15-16-12-59.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-12-59.png)
 
 3. 选择对应的版本下载
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-07.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-07.png)
 
 ## 安装JDK
 
 1. 打开下载好的安装包，点击下一步
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-15.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-15.png)
 
 2. 选择指定目录，点击下一步
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-23.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-23.png)
 
 3. 等待安装完成。
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-29.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-29.png)
 
 
 > 注意：java这个时候我们只是安装好了JDK，但是并没有设置其环境变量，所以我们是没有办法使用命令行运行javac程序的。必须配置环境变量才能使用。
@@ -46,7 +46,7 @@ https://www.oracle.com/cn/java/technologies/downloads/
 
 选择一个项目并打开，打开项目结构设置，选择 JDK 下载即可。
 
-![](../../../assets/JDK/2024-03-15-15-35-46.png)
+![](/assets/java/core/JDK/2024-03-15-15-35-46.png)
 
 ## 配置环境变量
 
@@ -54,23 +54,23 @@ https://www.oracle.com/cn/java/technologies/downloads/
 
 1. 在电脑搜索栏搜索**编辑环境变量**
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-39.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-39.png)
 
 2. 选择环境变量
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-44.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-44.png)
 
 3. 选择系统变量中的PATH这一行，点击编辑
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-50.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-50.png)
 
 4. 点击新建
 
-![](../../../assets/jdk-env-path/2024-03-15-16-13-55.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-13-55.png)
 
 5. 输入刚才JDK的安装路径，直到bin目录为止
 
-![](../../../assets/jdk-env-path/2024-03-15-16-14-01.png)
+![](/assets/java/core/jdk-env-path/2024-03-15-16-14-01.png)
 
 6. 点击确定，这个时候就已经配置成功了。
 
@@ -89,7 +89,7 @@ https://www.oracle.com/cn/java/technologies/downloads/
 java -version
 ```
 
-![](../../../assets/JDK/2024-03-15-15-43-26.png)
+![](/assets/java/core/JDK/2024-03-15-15-43-26.png)
 
 ::: warning 注意
 在确保自己都是正确操作的情况下，仍无法正确执行，此时重启一下电脑，使配置项生效即可。
@@ -120,7 +120,7 @@ java -version
 ## 什么关系？
 
 
-![](../../../assets/jdk-jre-jvm/2024-03-15-16-15-32.png)
+![](/assets/java/core/jdk-jre-jvm/2024-03-15-16-15-32.png)
 
 &emsp;&emsp;JDK中包含了JRE和JVM，JRE中包含了JVM。三者的关系并不难懂，实质上根据需求来分析很容易。
 

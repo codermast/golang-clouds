@@ -177,7 +177,7 @@ int getByIndex(SqList &L,int i){
 
 - 单链表中节点类型的描述
 
-![](../../../assets/linear-list/2023-07-02-15-50-05.png)
+![](/assets/java/core/linear-list/2023-07-02-15-50-05.png)
 
 ```c
 typedef struct LNode{   // 定义单链表节点类型

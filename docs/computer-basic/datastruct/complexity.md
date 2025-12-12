@@ -206,7 +206,7 @@ int func(int n){
 ```
 第一种方法我目前也没有理解，具体是怎么做的。
 
-![计算体积](../../../assets/complexity/2023-04-19-20-36-23.png)
+![计算体积](/assets/java/core/complexity/2023-04-19-20-36-23.png)
 
 体积公式 $V = \frac {1} {3} s * h$
 

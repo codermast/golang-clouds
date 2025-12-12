@@ -81,4 +81,4 @@ order : 1
 
 ## MySQL数据模型
 
-![MySQL数据模型](../../../assets/mysql-base/2023-04-08-23-50-11.png)
+![MySQL数据模型](/assets/database/mysql/mysql-base/2023-04-08-23-50-11.png)

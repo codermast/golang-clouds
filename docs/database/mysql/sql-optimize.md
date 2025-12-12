@@ -57,7 +57,7 @@ load data local infile 'file_path' into table `table_name` fields terminated by 
 
 而InnoDB存储引擎中，默认的聚集索引就是主键索引。
 
-![逻辑存储结构](../../../assets/sql-optimize/2023-04-14-10-17-09.png)
+![逻辑存储结构](/assets/database/mysql/sql-optimize/2023-04-14-10-17-09.png)
 
 ::: info 参数说明
 - TableSpace：表空间，内存储的是segment段
@@ -80,16 +80,16 @@ load data local infile 'file_path' into table `table_name` fields terminated by 
 - 主键乱序插入
 同理，数据按主键排序，那么在主键乱序插入一组数据以后，此时页内的数据是有序的，但是如果下一次想要插入的数据主键不为最大值，那么此时需要将数据插入到页中，而不是直接添加到页尾，则此时需要进行数据的移动。
 
-![主键乱序插入](../../../assets/sql-optimize/2023-04-14-10-29-31.png)
+![主键乱序插入](/assets/database/mysql/sql-optimize/2023-04-14-10-29-31.png)
 
 1. 先开启一个新的数据页，page3
-![开辟新的数据页](../../../assets/sql-optimize/2023-04-14-10-34-34.png)
+![开辟新的数据页](/assets/database/mysql/sql-optimize/2023-04-14-10-34-34.png)
 2. 将page1中50%的位置，将后半段数据移动到page3
-![移动page1中一半的数据](../../../assets/sql-optimize/2023-04-14-10-35-08.png)
+![移动page1中一半的数据](/assets/database/mysql/sql-optimize/2023-04-14-10-35-08.png)
 3. 将主键为50的这行数据，插入到page3的末尾。
-![将数据插入到page3末尾](../../../assets/sql-optimize/2023-04-14-10-32-55.png)
+![将数据插入到page3末尾](/assets/database/mysql/sql-optimize/2023-04-14-10-32-55.png)
 4. 由于要保证page之间有序，还需要调整页间指针的方向，调整为 page1 -> page3 -> page2
-![调整页间指针](../../../assets/sql-optimize/2023-04-14-10-33-44.png)
+![调整页间指针](/assets/database/mysql/sql-optimize/2023-04-14-10-33-44.png)
 5. 此时则完成了数据的插入。
 
 ::: tip 小知识

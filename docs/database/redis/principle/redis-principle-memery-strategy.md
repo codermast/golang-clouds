@@ -6,7 +6,7 @@ order : 31
 
 Redis 本身是一个典型的 key-value 内存存储数据库，因此所有的 key、value 都保存在之前学习过的 Dict 结构中。不过在其 database 结构体中，有两个 Dict ：一个用来记录 key-value；另外一个用来记录 key-TTL
 
-![](../../../../assets/redis-memery-strategy/2023-06-22-17-58-07.png)
+![](/assets/database/redis/redis-memery-strategy/2023-06-22-17-58-07.png)
 
 
 ```c
@@ -103,4 +103,4 @@ LRU 的访问次数之所以叫做逻辑访问次数，是因为并不是每次 
 3. 如果 R < P，则计数器 + 1，且最大不超过 255
 4. 访问次数会随时间缩减，距离上一次访问时间每隔 lfu_decay_time 分钟（默认 1），计数器 -1
 
-![](../../../../assets/redis-memery-strategy/2023-06-22-18-41-05.png)
+![](/assets/database/redis/redis-memery-strategy/2023-06-22-18-41-05.png)

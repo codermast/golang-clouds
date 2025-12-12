@@ -7,7 +7,7 @@ dir :
 # Maven 教程
 
 
-![](../../../assets/readme/2024-04-22-11-05-10.png)
+![](/assets/project/readme/2024-04-22-11-05-10.png)
 
 ## 目录
 

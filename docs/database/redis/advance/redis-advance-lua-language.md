@@ -9,7 +9,7 @@ Lua 是一种轻量小巧的脚本语言，用标准的 C 语言编写并以源�
 
 官网：https://www.lua.org/
 
-![](../../../../assets/redis-advance-lua-language/2023-08-26-20-27-16.png)
+![](/assets/database/redis/redis-advance-lua-language/2023-08-26-20-27-16.png)
 
 ## 快速入门
 

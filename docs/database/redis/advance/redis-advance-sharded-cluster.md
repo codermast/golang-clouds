@@ -25,7 +25,7 @@ order : 16
 
 分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-13-33.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-13-33.png)
 
 
 这里我们会在同一台虚拟机中开启6个redis实例，模拟分片集群，信息如下：
@@ -120,7 +120,7 @@ ps -ef | grep redis
 
 发现服务都已经正常启动：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-23-50.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-23-50.png)
 
 如果要关闭所有进程，可以执行命令：
 
@@ -185,12 +185,12 @@ redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150
 
 运行后的样子：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-23-28.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-23-28.png)
 
 这里输入yes，则集群开始创建：
 
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-23-12.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-23-12.png)
 
 通过命令可以查看集群状态：
 
@@ -199,7 +199,7 @@ redis-cli -p 7001 cluster nodes
 ```
 
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-22-54.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-22-54.png)
 
 
 
@@ -220,7 +220,7 @@ set a 1
 
 结果悲剧了：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-22-08.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-22-08.png)
 
 集群操作时，需要给`redis-cli`加上`-c`参数才可以：
 
@@ -230,7 +230,7 @@ redis-cli -c -p 7001
 
 这次可以了：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-27-22-21-27.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-27-22-21-27.png)
 
 ## 散列插槽
 
@@ -311,7 +311,7 @@ Do you want to proceed with the proposed rehard plan (yes/no)? yes
 
 利用 cluster failover 命令可以手动让集群中的某个 master 宕机，切换到执行 cluster failover 命令的这个 slave 节点，实现无感知的数据迁移。具体的流程如下：
 
-![](../../../../assets/redis-advance-sharded-cluster/2023-06-29-17-47-24.png)
+![](/assets/database/redis/redis-advance-sharded-cluster/2023-06-29-17-47-24.png)
 
 
 手动的 Failover 支持三种不同模式：

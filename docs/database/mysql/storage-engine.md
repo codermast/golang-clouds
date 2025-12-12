@@ -4,7 +4,7 @@ order : 22
 # MySQL进阶 - 存储引擎
 ## MySQL的体系结构
 
-![MySQL的体系结构示意图](../../../assets/storage-engine/2023-04-10-18-34-31.png)
+![MySQL的体系结构示意图](/assets/database/mysql/storage-engine/2023-04-10-18-34-31.png)
 
 - 连接层
 连接层处于MySQL体系结构中的最上层，是一些客户端和链接服务，主要完成一些类似于连接处理、授权认证、以及相关的安全方案。服务器也会为安全接入的每个客户端验证它所具有的操作权限。
@@ -30,7 +30,7 @@ order : 22
 ```sql
 SHOW ENGINES;
 ```
-![存储引擎列表](../../../assets/storage-engine/2023-04-10-18-50-36.png)
+![存储引擎列表](/assets/database/mysql/storage-engine/2023-04-10-18-50-36.png)
 
 - 创建一张表并且指定引擎
 ```sql

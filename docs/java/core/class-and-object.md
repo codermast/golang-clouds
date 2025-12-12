@@ -115,7 +115,7 @@ public class PersonTest {
 }
 ```
 
-![](../../../assets/class-and-object/2024-03-20-00-01-12.png)
+![](/assets/java/core/class-and-object/2024-03-20-00-01-12.png)
 
 ### 内部类
 
@@ -187,7 +187,7 @@ public class LocalInnerClass {
 }
 ```
 
-![](../../../assets/class-and-object/2024-03-20-00-39-32.png)
+![](/assets/java/core/class-and-object/2024-03-20-00-39-32.png)
 
 局部内部类类似于方法中的局部变量，不能有 `public`、`private`、`protected`以及 `static` 修饰。
 
@@ -213,7 +213,7 @@ public class StaticInnerClass {
 }
 ```
 
-![](../../../assets/class-and-object/2024-03-20-00-41-56.png)
+![](/assets/java/core/class-and-object/2024-03-20-00-41-56.png)
 
 ::: warning 注意
 静态内部类无法访问外部类的成员，只能访问外部类的静态属性。静态类本质上和静态方法类似，外部类的成员是属于对象的，而不是属于类的。
@@ -242,7 +242,7 @@ public class AnonymousInnerClass {
 }
 ```
 
-![](../../../assets/class-and-object/2024-03-20-00-48-26.png)
+![](/assets/java/core/class-and-object/2024-03-20-00-48-26.png)
 
 ::: warning 注意
 Java 中禁止在匿名内部类中修改外部局部变量，是因为Java对于匿名内部类传递变量的实现是基于构造器传参的，也就是说如果允许你在匿名内部类中修改值，你修改的是匿名内部类中的外部局部变量副本，最终并不会对外部类产生效果。

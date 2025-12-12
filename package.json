@@ -7,7 +7,7 @@
   "scripts": {
     "docs:build": "vuepress build docs",
     "docs:clean-dev": "vuepress dev docs --clean-cache",
-    "docs:dev": "vuepress dev docs",
+    "docs:dev": "vuepress dev docs  --port 3000",
     "docs:update-package": "npx vp-update"
   },
   "devDependencies": {

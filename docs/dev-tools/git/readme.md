@@ -5,7 +5,7 @@ index : false
 ---
 # Git 学习笔记
 
-![](../../../assets/readme/2024-04-02-22-34-42.png)
+![](/assets/project/readme/2024-04-02-22-34-42.png)
 
 ## 目录
 

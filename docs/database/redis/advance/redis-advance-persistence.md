@@ -47,7 +47,7 @@ fork 采用的是 copy-on-write 技术：
 - 当主进程执行读操作时，访问共享内存
 - 当主进程执行写操作时，则会拷贝一份数据，执行写操作。
 
-![](../../../../assets/redis-advance-persistence/2023-06-23-16-27-48.png)
+![](/assets/database/redis/redis-advance-persistence/2023-06-23-16-27-48.png)
 
 ::: warning 极端情况
 当子进程写新的 RDB 文件时，此时主进程大量修改数据，则需要对数据进行拷贝，当主进程需要对所有的数据都进行修改时，则需要两倍原来的内存，故我们在配置 Redis 服务时，不能将所有的实际内存分配给 Redis ，需要预留一部分缓冲空间。
@@ -97,7 +97,7 @@ appendfsync no          // 写命令执行完先放入 AOF 缓冲区，由操作
 
 AOF 是记录命令，AOF 文件会比 RDB 文件大很多。而且 AOF 会记录对同一个 key 的 多次写操作，但只有最后一次写操作才有意义。通过执行 bgrewriteaof 命令，可以让 AOF 文件执行重写功能，用最少的命令达到相同效果。
 
-![](../../../../assets/redis-advance-persistence/2023-06-23-17-00-36.png)
+![](/assets/database/redis/redis-advance-persistence/2023-06-23-17-00-36.png)
 
 Redis 也会在触发阈值时自动去重写 AOF 文件。阈值也可以在 redis.conf 中配置：
 

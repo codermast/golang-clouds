@@ -40,7 +40,7 @@ order : 5
 ### 内连接
 相当于查询数据表A、B之间的交集部分。内连接分为两种类型<Badge text="隐式内连接" type="info" />和<Badge text="显式内连接" type="info" />。
 
-![内连接](../../../assets/multi-table-query/2023-04-10-15-22-40.png)
+![内连接](/assets/database/mysql/multi-table-query/2023-04-10-15-22-40.png)
 
 - 隐式内连接
 ```sql
@@ -56,7 +56,7 @@ SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 连接条件...;
 
 - 左外连接：查询左表的所有数据，以及两张表交集部分的数据。
 
-![左外连接](../../../assets/multi-table-query/2023-04-10-15-33-53.png)
+![左外连接](/assets/database/mysql/multi-table-query/2023-04-10-15-33-53.png)
 
 ```sql
 SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 连接条件...;
@@ -64,7 +64,7 @@ SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 连接条件...;
 
 - 右外连接：查询右表的所有数据，以及两张表交集部分的数据。
 
-![右外连接](../../../assets/multi-table-query/2023-04-10-15-34-28.png)
+![右外连接](/assets/database/mysql/multi-table-query/2023-04-10-15-34-28.png)
 ```sql
 SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 连接条件...;
 ```

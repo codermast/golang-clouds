@@ -9,14 +9,14 @@ export default defineUserConfig({
   locales: {
     "/": {
       lang: "zh-CN",
-      title: "友人的编程指南",
-      description: "CoderMast编程指南，深入学习编程的技术指南，早日成为编码大师！",
+      title: "Golang Clouds",
+      description: "Golang Clouds - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
     },
   },
-  title: "友人的编程指南",
-  description: "CoderMast编程指南，深入学习编程的技术指南，早日成为编码大师！。",
+  title: "Golang Clouds",
+  description: "Golang Clouds - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
   head: [
-    ["meta", { name: "keywords", content: "CoderMast,编程指南,Java编程,MySQL,Redis,Spring,MyBatis" }],
+    ["meta", { name: "keywords", content: "Golang,Go语言,云原生,Docker,Kubernetes,微服务,MySQL,Redis,gRPC" }],
     ["meta", { name: "baidu-site-verification", content: "codeva-GfqTd2Cs0w" }],
     ["script", {}, `<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"JWxCHZQ6MtnZPBkF",ck:"JWxCHZQ6MtnZPBkF"})</script>`]
   ],

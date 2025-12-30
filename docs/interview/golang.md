@@ -204,9 +204,159 @@ type eface struct {
 
 ---
 
+### Q9: Go 的 error 处理机制
+
+**error 是一个接口：**
+
+```go
+type error interface {
+    Error() string
+}
+```
+
+**错误处理方式：**
+
+```go
+// 1. 直接返回
+if err != nil {
+    return err
+}
+
+// 2. 包装错误（Go 1.13+）
+if err != nil {
+    return fmt.Errorf("读取配置失败: %w", err)
+}
+
+// 3. 错误判断
+if errors.Is(err, os.ErrNotExist) {
+    // 处理文件不存在
+}
+
+// 4. 类型断言
+var pathErr *os.PathError
+if errors.As(err, &pathErr) {
+    fmt.Println(pathErr.Path)
+}
+```
+
+**errors.Is vs errors.As：**
+
+| 函数 | 作用 | 场景 |
+| :--- | :--- | :--- |
+| `errors.Is` | 判断是否是特定错误值 | sentinel error |
+| `errors.As` | 判断是否是特定错误类型 | 自定义 error 类型 |
+
+---
+
+### Q10: 如何自定义 error
+
+```go
+// 方法一：实现 error 接口
+type MyError struct {
+    Code    int
+    Message string
+}
+
+func (e *MyError) Error() string {
+    return fmt.Sprintf("[%d] %s", e.Code, e.Message)
+}
+
+// 方法二：使用 errors.New
+var ErrNotFound = errors.New("not found")
+
+// 方法三：使用 fmt.Errorf
+err := fmt.Errorf("user %d not found", userID)
+```
+
+---
+
+### Q11: panic 和 recover 的使用
+
+**panic：** 程序遇到无法恢复的错误时使用
+
+```go
+// 触发 panic
+panic("something went wrong")
+
+// 常见触发场景
+arr[100]          // 数组越界
+nil.Method()      // nil 指针调用方法
+close(closedChan) // 重复关闭 channel
+```
+
+**recover：** 捕获 panic，必须在 defer 中使用
+
+```go
+func safeCall() {
+    defer func() {
+        if r := recover(); r != nil {
+            log.Printf("Recovered: %v", r)
+            // 打印堆栈
+            debug.PrintStack()
+        }
+    }()
+    
+    // 可能 panic 的代码
+    riskyOperation()
+}
+```
+
+---
+
+### Q12: panic 和 error 如何选择
+
+| 场景 | 选择 | 原因 |
+| :--- | :--- | :--- |
+| 预期内的错误 | error | 调用方可处理 |
+| 编程错误/bug | panic | 不应该发生 |
+| 初始化失败 | panic | 程序无法继续 |
+| 库函数 | error | 不应强制终止程序 |
+
+**原则：**
+- **优先用 error**：Go 推荐显式错误处理
+- **panic 慎用**：只用于真正的异常情况
+- **库代码不要 panic**：让调用方决定如何处理
+
+---
+
+### Q13: defer、panic、recover 的执行顺序
+
+```go
+func main() {
+    defer fmt.Println("1")
+    defer fmt.Println("2")
+    
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered:", r)
+        }
+    }()
+    
+    defer fmt.Println("3")
+    
+    panic("error!")
+    
+    defer fmt.Println("4")  // 不会执行
+}
+
+// 输出：
+// 3
+// Recovered: error!
+// 2
+// 1
+```
+
+**执行流程：**
+1. panic 发生后，停止正常执行
+2. 按 LIFO 顺序执行 defer
+3. 遇到 recover 则捕获 panic
+4. recover 后续的 defer 继续执行
+
+---
+
 ## 二、数据结构
 
-### Q9: string 底层结构是什么？
+### Q14: string 底层结构是什么？
 
 ```go
 type stringStruct struct {
@@ -231,7 +381,7 @@ type stringStruct struct {
 
 ---
 
-### Q10: slice 底层结构和扩容机制
+### Q15: slice 底层结构和扩容机制
 
 **底层结构：**
 
@@ -259,7 +409,7 @@ if oldCap < 256 {
 
 ---
 
-### Q11: Go中对nil的Slice和空Slice的处理是一致的吗
+### Q16: Go中对nil的Slice和空Slice的处理是一致的吗
 
 **不完全一致。**
 
@@ -279,7 +429,7 @@ emptySlice2 := make([]int, 0) // 空 slice: 非 nil, len=0, cap=0
 
 ---
 
-### Q12: slice 作为参数传递会发生什么
+### Q17: slice 作为参数传递会发生什么
 
 slice 是**值传递**，但传递的是 header（ptr, len, cap），底层数组共享。
 
@@ -294,7 +444,7 @@ func modify(s []int) {
 
 ---
 
-### Q13: map 的底层实现
+### Q18: map 的底层实现
 
 **底层结构：**
 
@@ -319,7 +469,7 @@ type hmap struct {
 
 ---
 
-### Q14: map 为什么是无序的
+### Q19: map 为什么是无序的
 
 1. **哈希分布**：key 按哈希值分布，不是按插入顺序
 2. **扩容迁移**：扩容时数据会重新分布到新 bucket
@@ -327,28 +477,56 @@ type hmap struct {
 
 ---
 
-### Q15: 并发读写 map 会怎样
+### Q20: map vs sync.Map 深度对比及增删改查实现细节
 
-会 **panic**！map 不是并发安全的。
+#### 1. 核心对比总结
 
-**解决方案：**
+| 特性 | map (配合 RWMutex) | sync.Map |
+| :--- | :--- | :--- |
+| **线程安全** | 不安全（需手动加锁） | 并发安全 |
+| **锁颗粒度** | 整个 map（大锁），竞争激烈 | 读写分离，只有 dirty 部分加锁（细锁） |
+| **性能场景** | **写操作多**、通用场景 | **读多写少**、Key 集合稳定、多核竞争 |
+| **内存占用** | 较低 | 较高（维护 read 和 dirty 两个 map） |
+| **零值可用** | `make` 后可用，nil map 写会 panic | 直接声明即可使用（开箱即用） |
 
-| 方案 | 适用场景 |
-| :--- | :--- |
-| `sync.Mutex` | 通用场景 |
-| `sync.RWMutex` | 读多写少 |
-| `sync.Map` | 读多写少，key 稳定 |
+#### 2. map 的增删改查实现 (hmap)
 
-```go
-var m sync.Map
-m.Store(key, value)
-value, ok := m.Load(key)
-m.Range(func(k, v interface{}) bool { ... })
-```
+Go 标准 `map` 使用哈希表实现，采用 **链地址法** 解决冲突：
+
+- **查 (Load)**：
+    1. 计算 Key 的 Hash 值。
+    2. 取 Hash 低位定位于哪个 Bucket（桶）。
+    3. 遍历桶内的 8 个槽位，通过 **tophash**（Hash 高 8 位）快速过滤，再匹配 Key。
+    4. 若桶满且未找到，继续查找 **overflow bucket**（溢出桶）。
+- **增/改 (Store)**：定位到 Bucket 后，寻找空位或已存在的 Key。若负载因子 > 6.5 或溢出桶过多，触发 **渐进式扩容**。
+- **删 (Delete)**：定位到槽位，将 Key/Value 清理，并重置 tophash。
+
+#### 3. sync.Map 的增删改查实现 (read/dirty)
+
+`sync.Map` 采用了 **读写分离** 和 **内存换时间** 的策略：
+
+- **底层结构**：
+    - `read`：原子访问（`atomic.Value`），包含只读数据，不加锁。
+    - `dirty`：原生 map，包含全量数据，操作需加互斥锁。
+    - `misses`：计数器，记录 read 未命中而查 dirty 的次数。
+
+- **查 (Load)**：
+    1. 先从 `read` 原子读取，命中则返回（极其高效）。
+    2. 若未命中且 `amended=true`（说明 dirty 有 read 没有的数据），加锁访问 `dirty`。
+    3. **Miss 升级**：若 misses 达到 `len(dirty)`，将 dirty 整体迁移给 read，清空 dirty，实现“冷数据变热”。
+- **增 (Store)**：
+    1. 若 Key 在 `read` 中且未被标记为 `expunged`，尝试 **CAS** 无锁更新。
+    2. 若 CAS 失败（不在 read 或已被删），加锁处理：双检查（Double Check），写入或更新 `dirty`。
+- **删 (Delete)**：
+    1. 若 Key 在 `read` 中，直接将其 Value 标记为 `nil`（逻辑删除，无锁）。
+    2. 若不在 `read` 且 `amended=true`，加锁物理删除 `dirty` 中的 Key。
+
+#### 4. 为什么 sync.Map 适合读多写少？
+因为在读多写少的场景下，绝大多数操作都能在 `read` map 中通过原子操作完成，完全避开了互斥锁，从而在大规模并发下性能远超 `RWMutex + map`。而在写多的场景下，频繁的 `dirty` 写入和 `miss` 迁移会导致性能陡降。
 
 ---
 
-### Q16: Go中的map如何实现顺序读取
+### Q21: Go中的map如何实现顺序读取
 
 **map 本身无序，需要额外处理：**
 
@@ -366,7 +544,7 @@ for _, k := range keys {
 
 ---
 
-### Q17: interface 的底层结构
+### Q22: interface 的底层结构
 
 **空接口 `interface{}`（eface）：**
 
@@ -390,7 +568,7 @@ type iface struct {
 
 ## 三、并发编程
 
-### Q18: 协程、线程、进程的区别
+### Q23: 协程、线程、进程的区别
 
 | 特性 | 进程 | 线程 | 协程(Goroutine) |
 | :--- | :--- | :--- | :--- |
@@ -403,7 +581,7 @@ type iface struct {
 
 ---
 
-### Q19: Goroutine和线程的区别
+### Q24: Goroutine和线程的区别
 
 | 特性 | Goroutine | OS Thread |
 | :--- | :--- | :--- |
@@ -416,7 +594,7 @@ type iface struct {
 
 ---
 
-### Q20: Goroutine和Channel的作用分别是什么
+### Q25: Goroutine和Channel的作用分别是什么
 
 **Goroutine：**
 - 轻量级并发执行单元
@@ -433,7 +611,7 @@ type iface struct {
 
 ---
 
-### Q21: 什么是channel，为什么它可以做到线程安全
+### Q26: 什么是channel，为什么它可以做到线程安全
 
 **Channel 是 Go 中的通信机制**，用于 goroutine 间传递数据。
 
@@ -457,7 +635,7 @@ type hchan struct {
 
 ---
 
-### Q22: 无缓冲Chan的发送和接收是否同步
+### Q27: 无缓冲Chan的发送和接收是否同步
 
 **是同步的。** 无缓冲 Channel 发送和接收操作必须同时准备好才能完成。
 
@@ -473,7 +651,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q23: Channel是同步的还是异步的
+### Q28: Channel是同步的还是异步的
 
 **取决于是否有缓冲：**
 
@@ -484,7 +662,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q24: Channel 操作的各种情况
+### Q29: Channel 操作的各种情况
 
 | 操作 | nil channel | 已关闭 channel | 正常 channel |
 | :--- | :--- | :--- | :--- |
@@ -494,7 +672,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q25: Golang并发机制以及CSP并发模型
+### Q30: Golang并发机制以及CSP并发模型
 
 **CSP（Communicating Sequential Processes）模型核心思想：**
 
@@ -512,7 +690,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q26: Golang中除了加Mutex锁以外还有哪些方式安全读写共享变量
+### Q31: Golang中除了加Mutex锁以外还有哪些方式安全读写共享变量
 
 | 方式 | 适用场景 | 说明 |
 | :--- | :--- | :--- |
@@ -523,7 +701,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q27: Go中的锁有哪些
+### Q32: Go中的锁有哪些
 
 | 锁类型 | 说明 | 使用场景 |
 | :--- | :--- | :--- |
@@ -536,7 +714,7 @@ val := <-ch  // 阻塞直到有发送者
 
 ---
 
-### Q28: Go中的锁如何实现
+### Q33: Go中的锁如何实现
 
 **sync.Mutex 实现原理：**
 
@@ -554,7 +732,7 @@ type Mutex struct {
 
 ---
 
-### Q29: Go中CAS是怎么回事
+### Q34: Go中CAS是怎么回事
 
 **CAS（Compare And Swap）是原子操作：**
 
@@ -579,7 +757,7 @@ for {
 
 ---
 
-### Q30: Go中数据竞争问题怎么解决
+### Q35: Go中数据竞争问题怎么解决
 
 **检测工具：**
 
@@ -592,7 +770,7 @@ go test -race ./...     # 测试时检测
 
 ---
 
-### Q31: Golang中常用的并发模型
+### Q36: Golang中常用的并发模型
 
 **1. Worker Pool（工作池）**
 
@@ -622,7 +800,7 @@ sem := make(chan struct{}, 10)  // 最多 10 个并发
 
 ---
 
-### Q32: 怎么限制Goroutine的数量
+### Q37: 怎么限制Goroutine的数量
 
 **方法一：带缓冲 Channel（信号量）**
 
@@ -646,7 +824,7 @@ for i := 0; i < 100; i++ {
 
 ---
 
-### Q33: 怎么查看Goroutine的数量
+### Q38: 怎么查看Goroutine的数量
 
 ```go
 // 方法一：runtime
@@ -660,7 +838,7 @@ go http.ListenAndServe(":6060", nil)
 
 ---
 
-### Q34: Go主协程如何等其余协程完再操作
+### Q39: Go主协程如何等其余协程完再操作
 
 **方法一：sync.WaitGroup（推荐）**
 
@@ -688,29 +866,68 @@ err := g.Wait()
 
 ---
 
-### Q35: Go的Context包的用途是什么
+### Q40: Context 是什么？它的应用场景有哪些？
 
-**主要用途：**
-1. **取消信号传递**
-2. **超时控制**
-3. **请求范围值传递**
-4. **跨 goroutine 控制**
+**Context 是什么：**
+`Context` 是 Go 语言标准库中的一个接口，主要用于在 API 边界之间以及 goroutine 之间传递**截止日期（Deadlines）**、**取消信号（Cancellation signals）**以及**请求范围的值（Request-scoped values）**。
 
-```go
-ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-defer cancel()
+**核心原理：**
+- **树状结构**：Context 形成一个树状继承体系。根节点通常是 `context.Background()` 或 `context.TODO()`。
+- **取消信号传播**：当父 Context 被取消时，所有由它衍生出来的子 Context 也会被取消。
+- **线程安全**：Context 是并发安全的，可以被传递给多个 goroutine。
 
-select {
-case <-ctx.Done():
-    return ctx.Err()
-case result := <-doWork(ctx):
-    return result
-}
-```
+**Go 标准库提供的四种衍生的 Context：**
+| 函数 | 作用 | 场景 |
+| :--- | :--- | :--- |
+| `WithCancel` | 返回一个可手动取消的 Context | 任务完成后手动停止协程 |
+| `WithDeadline` | 在指定的时间点自动取消 | 限时任务、截止时间 |
+| `WithTimeout` | 在指定的持续时间后自动取消 | RPC 调用超时、数据库查询超时 |
+| `WithValue` | 携带请求范围的键值对 | 传递 RequestID、TraceID、用户信息 |
+
+**应用场景：**
+
+1. **超时控制（最常用）**：
+   在做网络请求或数据库查询时，防止调用方因为下游响应慢而导致资源一直被占用。
+   ```go
+   ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+   defer cancel()
+   
+   req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com", nil)
+   resp, err := http.DefaultClient.Do(req)
+   ```
+
+2. **取消信号的级联传递**：
+   当一个主任务被取消或失败时，与之相关的所有子任务（在不同的 goroutine 中）都应该立即停止。
+   ```go
+   func main() {
+       ctx, cancel := context.WithCancel(context.Background())
+       go worker(ctx, "worker1")
+       go worker(ctx, "worker2")
+       time.Sleep(1 * time.Second)
+       cancel() // 两个 worker 都会收到信号并退出
+   }
+   ```
+
+3. **跨 API 边界传递数据**：
+   在 Web 框架（如 Gin）的中间件中，常用来传递 TraceID、用户登录信息等。
+   ```go
+   // 传递数据
+   ctx := context.WithValue(context.Background(), "TraceID", "abc-123")
+   // 获取数据
+   traceID := ctx.Value("TraceID").(string)
+   ```
+
+4. **防止 Goroutine 泄漏**：
+   通过 Context 的 `Done()` 通道，确保 Goroutine 在任务不再需要时能及时退出。
+
+**使用原则：**
+- 不要将 Context 放入结构体中，而是显式作为函数的第一个参数传递（通常命名为 `ctx`）。
+- 不要传递 `nil` 的 Context，如果不确定用什么，使用 `context.TODO()`。
+- Context 仅用于传递请求范围的数据，不应用于传递函数的可选参数。
 
 ---
 
-### Q36: 如何在goroutine执行一半就退出协程
+### Q41: 如何在goroutine执行一半就退出协程
 
 **方法一：context 取消（推荐）**
 
@@ -739,7 +956,7 @@ runtime.Goexit()  // 立即终止当前 goroutine
 
 ---
 
-### Q37: Goroutine发生了泄漏如何检测
+### Q42: Goroutine发生了泄漏如何检测
 
 **常见泄漏原因：**
 - 阻塞在 channel 上无法退出
@@ -764,7 +981,7 @@ func TestNoLeak(t *testing.T) {
 
 ---
 
-### Q38: 在Go函数中为什么会发生内存泄露
+### Q43: 在Go函数中为什么会发生内存泄露
 
 **常见内存泄露场景：**
 
@@ -782,7 +999,7 @@ defer ticker.Stop()  // 必须停止！
 
 ## 四、GMP 调度器
 
-### Q39: Go的GPM如何调度
+### Q44: Go的GPM如何调度
 
 **GMP 组件：**
 
@@ -804,7 +1021,7 @@ defer ticker.Stop()  // 必须停止！
 
 ---
 
-### Q40: 为何GPM调度要有P
+### Q45: 为何GPM调度要有P
 
 **P 的存在解决以下问题：**
 
@@ -815,7 +1032,7 @@ defer ticker.Stop()  // 必须停止！
 
 ---
 
-### Q41: Goroutine和KernelThread之间是什么关系
+### Q46: Goroutine和KernelThread之间是什么关系
 
 **多对多（M:N）关系：**
 
@@ -825,7 +1042,7 @@ defer ticker.Stop()  // 必须停止！
 
 ---
 
-### Q42: G0的作用
+### Q47: G0的作用
 
 **G0 是每个 M（线程）的特殊 goroutine：**
 
@@ -841,7 +1058,7 @@ defer ticker.Stop()  // 必须停止！
 
 ## 五、内存管理
 
-### Q43: Go语言的栈空间管理是怎么样的
+### Q48: Go语言的栈空间管理是怎么样的
 
 **动态栈机制：**
 - 初始栈大小：2KB
@@ -859,7 +1076,7 @@ defer ticker.Stop()  // 必须停止！
 
 ---
 
-### Q44: Go的对象在内存中是怎样分配的
+### Q49: Go的对象在内存中是怎样分配的
 
 **Go 使用 TCMalloc 多级缓存：**
 
@@ -879,7 +1096,7 @@ mheap（全局唯一，管理所有内存）
 
 ---
 
-### Q45: Go中的逃逸分析是什么
+### Q50: Go中的逃逸分析是什么
 
 **逃逸分析决定变量分配在栈还是堆。**
 
@@ -905,7 +1122,7 @@ func escape() *int {
 
 ---
 
-### Q46: Golang的内存模型中为什么小对象多了会造成GC压力
+### Q51: Golang的内存模型中为什么小对象多了会造成GC压力
 
 **原因分析：**
 1. **扫描开销**：GC 需要扫描所有对象
@@ -919,7 +1136,7 @@ func escape() *int {
 
 ## 六、垃圾回收
 
-### Q47: Golang垃圾回收算法
+### Q52: Golang垃圾回收算法
 
 **三色标记 + 混合写屏障**
 
@@ -938,7 +1155,7 @@ func escape() *int {
 
 ---
 
-### Q48: GC的触发条件
+### Q53: GC的触发条件
 
 | 触发条件 | 说明 |
 | :--- | :--- |
@@ -955,7 +1172,7 @@ GOGC=off   # 关闭 GC（不推荐）
 
 ---
 
-### Q49: GC 过程中的 STW
+### Q54: GC 过程中的 STW
 
 **两次短暂的 STW：**
 
@@ -970,7 +1187,7 @@ Concurrent Sweep                  清理
 
 ---
 
-### Q50: 如何优化 GC
+### Q55: 如何优化 GC
 
 1. **调整 GOGC**：`GOGC=200` 减少 GC 频率
 2. **使用 GOMEMLIMIT**（Go 1.19+）
@@ -982,7 +1199,7 @@ Concurrent Sweep                  清理
 
 ## 七、标准库与实战
 
-### Q51: Go中的http包的实现原理
+### Q56: Go中的http包的实现原理
 
 **核心组件：**
 
@@ -1007,7 +1224,7 @@ type ServeMux struct {
 
 ---
 
-### Q52: sync.Pool 的作用和原理
+### Q57: sync.Pool 的作用和原理
 
 **作用：** 对象复用，减少 GC 压力
 
@@ -1028,7 +1245,7 @@ pool.Put(buf)
 
 ---
 
-### Q53: sync.Once 的实现原理
+### Q58: sync.Once 的实现原理
 
 ```go
 type Once struct {
@@ -1051,7 +1268,7 @@ func (o *Once) Do(f func()) {
 
 ---
 
-### Q54: Go 中如何实现单例模式
+### Q59: Go 中如何实现单例模式
 
 ```go
 var (
@@ -1069,7 +1286,7 @@ func GetInstance() *Singleton {
 
 ---
 
-### Q55: pprof 性能分析怎么用
+### Q60: pprof 性能分析怎么用
 
 ```go
 import _ "net/http/pprof"
@@ -1093,41 +1310,9 @@ top, list, web, svg
 
 ---
 
-## 八、高频考点清单
+## 八、项目实战
 
-### 必考
-
-- [ ] slice 底层结构、扩容机制
-- [ ] map 实现原理、并发安全
-- [ ] interface 底层结构、nil 陷阱
-- [ ] Goroutine vs 线程
-- [ ] Channel 底层实现、操作表
-- [ ] GMP 调度模型
-- [ ] GC 三色标记、写屏障
-- [ ] 逃逸分析
-
-### 常考
-
-- [ ] defer 执行顺序、命名返回值陷阱
-- [ ] select 用法、随机选择
-- [ ] sync.Mutex vs sync.RWMutex
-- [ ] sync.Pool 原理
-- [ ] context 使用场景
-- [ ] pprof 性能分析
-
-### 进阶
-
-- [ ] Go 内存分配器（mcache/mcentral/mheap）
-- [ ] GMP 中 P 的作用
-- [ ] Work Stealing 算法
-- [ ] 混合写屏障原理
-- [ ] Goroutine 泄漏检测
-
----
-
-## 九、项目实战
-
-### Q56: Gin 中间件的实现原理
+### Q61: Gin 中间件的实现原理
 
 **洋葱模型，基于责任链模式：**
 
@@ -1153,7 +1338,7 @@ func (c *Context) Next() {
 
 ---
 
-### Q57: GORM 的 Hook 机制
+### Q62: GORM 的 Hook 机制
 
 ```go
 // 创建前
@@ -1177,7 +1362,7 @@ func (u *User) BeforeUpdate(tx *gorm.DB) error {
 
 ---
 
-### Q58: 如何实现分布式锁
+### Q63: 如何实现分布式锁
 
 **Redis 分布式锁：**
 
@@ -1203,7 +1388,7 @@ func Unlock(ctx context.Context, key, value string) bool {
 
 ---
 
-### Q59: 缓存穿透、击穿、雪崩如何解决
+### Q64: 缓存穿透、击穿、雪崩如何解决
 
 | 问题 | 原因 | 解决方案 |
 | :--- | :--- | :--- |
@@ -1213,7 +1398,7 @@ func Unlock(ctx context.Context, key, value string) bool {
 
 ---
 
-### Q60: 如何实现服务熔断
+### Q65: 如何实现服务熔断
 
 ```go
 import "github.com/sony/gobreaker"
@@ -1237,7 +1422,7 @@ result, err := cb.Execute(func() (interface{}, error) {
 
 ---
 
-### Q61: gRPC 和 HTTP 的区别
+### Q66: gRPC 和 HTTP 的区别
 
 | 特性 | gRPC | HTTP/REST |
 | :--- | :--- | :--- |
@@ -1251,7 +1436,7 @@ result, err := cb.Execute(func() (interface{}, error) {
 
 ---
 
-### Q62: 如何保证消息不丢失
+### Q67: 如何保证消息不丢失
 
 **三个环节：**
 1. **生产者确认**：等待 broker ACK
@@ -1274,3 +1459,620 @@ func processOrder(orderID string) error {
     return nil
 }
 ```
+
+---
+
+## 九、Gin 框架深入
+
+### Q68: Gin 和 net/http 的关系
+
+**Gin 是基于 net/http 的封装：**
+
+```go
+// Gin 的 Engine 实现了 http.Handler 接口
+type Engine struct {
+    // ...
+}
+
+func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+    // 处理请求
+}
+
+// 可以作为 http.Handler 使用
+http.ListenAndServe(":8080", engine)
+```
+
+**Gin 在 net/http 基础上增加了：**
+- 高性能路由（基数树）
+- 中间件机制
+- 参数绑定
+- 错误处理
+
+---
+
+### Q69: Gin 中间件原理和执行顺序
+
+**洋葱模型：**
+
+```
+请求 → M1(前) → M2(前) → M3(前) → Handler
+响应 ← M1(后) ← M2(后) ← M3(后) ←┘
+```
+
+**执行流程：**
+
+```go
+func Logger() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        start := time.Now()
+        
+        c.Next()  // 执行后续处理
+        
+        latency := time.Since(start)
+        log.Printf("耗时: %v", latency)
+    }
+}
+```
+
+**关键方法：**
+- `c.Next()`：执行后续 handler
+- `c.Abort()`：终止后续执行
+- `c.AbortWithStatus()`：终止并返回状态码
+
+---
+
+### Q70: 如何实现一个鉴权中间件
+
+```go
+func AuthMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        token := c.GetHeader("Authorization")
+        
+        // 1. 检查 Token 是否存在
+        if token == "" {
+            c.AbortWithStatusJSON(401, gin.H{"error": "未授权"})
+            return
+        }
+        
+        // 2. 验证 Token
+        claims, err := jwt.ParseToken(token)
+        if err != nil {
+            c.AbortWithStatusJSON(401, gin.H{"error": "Token 无效"})
+            return
+        }
+        
+        // 3. 将用户信息存入 Context
+        c.Set("userID", claims.UserID)
+        c.Set("role", claims.Role)
+        
+        c.Next()
+    }
+}
+```
+
+---
+
+### Q71: Gin 如何处理 panic
+
+**内置 Recovery 中间件：**
+
+```go
+r := gin.Default()  // 包含 Logger 和 Recovery
+
+// 手动添加
+r.Use(gin.Recovery())
+
+// 自定义 Recovery
+r.Use(gin.CustomRecovery(func(c *gin.Context, err interface{}) {
+    // 记录日志
+    log.Printf("Panic: %v", err)
+    
+    // 返回错误响应
+    c.AbortWithStatusJSON(500, gin.H{
+        "error": "服务器内部错误",
+    })
+}))
+```
+
+---
+
+### Q72: HTTP 请求的生命周期
+
+```
+1. 请求进入 → net/http 接收
+2. Engine.ServeHTTP() → 从连接池获取 Context
+3. 路由匹配 → 基数树查找
+4. 执行中间件链 → handlers[0:n]
+5. 参数绑定 → Query/JSON/Form
+6. 业务处理 → Controller
+7. 响应写入 → c.JSON() / c.String()
+8. Context 回收 → 放回连接池
+```
+
+---
+
+### Q73: Gin 参数校验
+
+```go
+type CreateUserReq struct {
+    Username string `json:"username" binding:"required,min=3,max=20"`
+    Email    string `json:"email" binding:"required,email"`
+    Age      int    `json:"age" binding:"gte=18,lte=100"`
+    Password string `json:"password" binding:"required,min=6"`
+}
+
+func CreateUser(c *gin.Context) {
+    var req CreateUserReq
+    
+    if err := c.ShouldBindJSON(&req); err != nil {
+        // 自定义错误处理
+        c.JSON(400, gin.H{
+            "error": translateError(err),
+        })
+        return
+    }
+    
+    // 业务逻辑...
+}
+```
+
+---
+
+## 十、系统设计与架构
+
+### Q74: 如何设计一个高并发系统
+
+**核心策略：**
+
+| 策略 | 说明 |
+| :--- | :--- |
+| **缓存** | 多级缓存（本地 + Redis） |
+| **异步** | 消息队列解耦 |
+| **限流** | 保护系统不被打垮 |
+| **分库分表** | 数据库水平扩展 |
+| **读写分离** | 主写从读 |
+| **负载均衡** | 多实例分担压力 |
+
+---
+
+### Q75: 限流算法有哪些
+
+| 算法 | 特点 | 适用场景 |
+| :--- | :--- | :--- |
+| **计数器** | 简单，有临界问题 | 简单限流 |
+| **滑动窗口** | 解决临界问题 | 精确限流 |
+| **令牌桶** | 允许突发流量 | API 限流 |
+| **漏桶** | 平滑流量 | 流量整形 |
+
+**令牌桶实现：**
+
+```go
+import "golang.org/x/time/rate"
+
+limiter := rate.NewLimiter(100, 10)  // 每秒 100 个，突发 10 个
+
+if !limiter.Allow() {
+    c.JSON(429, gin.H{"error": "请求过于频繁"})
+    return
+}
+```
+
+---
+
+### Q76: 如何实现服务降级
+
+**降级策略：**
+
+```go
+func GetUserInfo(userID string) (*User, error) {
+    // 1. 尝试从缓存获取
+    if user, err := cache.Get(userID); err == nil {
+        return user, nil
+    }
+    
+    // 2. 熔断器检查
+    if circuitBreaker.IsOpen() {
+        // 降级：返回默认数据
+        return getDefaultUser(userID), nil
+    }
+    
+    // 3. 调用服务
+    user, err := userService.Get(userID)
+    if err != nil {
+        circuitBreaker.RecordFailure()
+        // 降级：返回缓存的旧数据
+        return cache.GetStale(userID), nil
+    }
+    
+    return user, nil
+}
+```
+
+---
+
+### Q77: 什么是高可用，如何实现
+
+**高可用 = 系统持续提供服务的能力**
+
+| 层面 | 方案 |
+| :--- | :--- |
+| **应用层** | 多实例部署、无状态服务 |
+| **网络层** | 负载均衡、多机房 |
+| **数据层** | 主从复制、读写分离 |
+| **容灾** | 故障转移、熔断降级 |
+
+**健康检查：**
+
+```go
+func healthCheck(c *gin.Context) {
+    // 检查依赖服务
+    if err := db.Ping(); err != nil {
+        c.JSON(503, gin.H{"status": "unhealthy"})
+        return
+    }
+    if err := redis.Ping(); err != nil {
+        c.JSON(503, gin.H{"status": "unhealthy"})
+        return
+    }
+    c.JSON(200, gin.H{"status": "healthy"})
+}
+```
+
+---
+
+## 十一、性能调优
+
+### Q78: pprof 怎么用
+
+**启用 pprof：**
+
+```go
+import _ "net/http/pprof"
+
+go func() {
+    http.ListenAndServe(":6060", nil)
+}()
+```
+
+**常用分析：**
+
+```bash
+# CPU 分析
+go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
+
+# 内存分析
+go tool pprof http://localhost:6060/debug/pprof/heap
+
+# Goroutine 分析
+go tool pprof http://localhost:6060/debug/pprof/goroutine
+
+# 阻塞分析
+go tool pprof http://localhost:6060/debug/pprof/block
+
+# 常用命令
+(pprof) top         # 热点函数
+(pprof) list func   # 查看函数代码
+(pprof) web         # 生成图形
+```
+
+---
+
+### Q79: CPU 飙高如何排查
+
+```bash
+# 1. 找到 Go 进程
+ps aux | grep myapp
+
+# 2. 采集 CPU Profile
+curl http://localhost:6060/debug/pprof/profile?seconds=30 > cpu.pprof
+
+# 3. 分析
+go tool pprof cpu.pprof
+(pprof) top 20
+(pprof) web
+```
+
+**常见原因：**
+- 死循环
+- 频繁 GC
+- 锁竞争
+- 正则表达式
+
+---
+
+### Q80: 内存暴涨如何排查
+
+```bash
+# 采集堆内存
+curl http://localhost:6060/debug/pprof/heap > heap.pprof
+
+# 分析
+go tool pprof heap.pprof
+(pprof) top -inuse_space    # 当前使用
+(pprof) top -alloc_space    # 累计分配
+```
+
+**常见原因：**
+- Goroutine 泄漏
+- 缓存无限增长
+- 大对象未释放
+- 切片底层数组未释放
+
+---
+
+### Q81: 火焰图怎么看
+
+**生成火焰图：**
+
+```bash
+go tool pprof -http=:8080 cpu.pprof
+```
+
+**解读：**
+- **横轴**：占用比例（越宽越耗资源）
+- **纵轴**：调用栈深度
+- **颜色**：无特殊含义，仅区分
+
+**优化目标：** 找到最宽的"平台"（热点函数）
+
+---
+
+### Q82: 如何优化 JSON 序列化
+
+| 库 | 特点 |
+| :--- | :--- |
+| encoding/json | 标准库，通用 |
+| jsoniter | 兼容标准库，更快 |
+| sonic | 字节跳动，SIMD 加速 |
+| easyjson | 代码生成，零反射 |
+
+```go
+import jsoniter "github.com/json-iterator/go"
+
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
+json.Marshal(obj)
+json.Unmarshal(data, &obj)
+```
+
+---
+
+## 十二、云原生部署
+
+### Q83: Go 服务 Docker 镜像怎么做
+
+**多阶段构建：**
+
+```dockerfile
+# 构建阶段
+FROM golang:1.21-alpine AS builder
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 go build -o main .
+
+# 运行阶段
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /app
+COPY --from=builder /app/main .
+EXPOSE 8080
+CMD ["./main"]
+```
+
+**最终镜像约 10-20MB**
+
+---
+
+### Q84: K8s 基本组件
+
+| 组件 | 说明 |
+| :--- | :--- |
+| **Pod** | 最小部署单元 |
+| **Deployment** | 管理 Pod 副本 |
+| **Service** | 服务发现和负载均衡 |
+| **Ingress** | 对外暴露 HTTP 服务 |
+| **ConfigMap** | 配置管理 |
+| **Secret** | 敏感配置 |
+
+---
+
+### Q85: 服务如何在 K8s 中暴露
+
+```yaml
+# Service（集群内部）
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+# Ingress（对外）
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+    - host: api.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-service
+                port:
+                  number: 80
+```
+
+---
+
+### Q86: 如何做滚动更新
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # 最多多 1 个 Pod
+      maxUnavailable: 0  # 最少可用数
+```
+
+**发布命令：**
+```bash
+kubectl set image deployment/myapp myapp=myapp:v2
+kubectl rollout status deployment/myapp
+kubectl rollout undo deployment/myapp  # 回滚
+```
+
+---
+
+## 十三、工程能力
+
+### Q87: Go 项目常见目录结构
+
+```
+project/
+├── cmd/                # 入口
+│   └── server/
+│       └── main.go
+├── internal/           # 私有代码
+│   ├── handler/        # HTTP 处理
+│   ├── service/        # 业务逻辑
+│   ├── repository/     # 数据访问
+│   └── model/          # 数据模型
+├── pkg/                # 可导出的公共包
+├── api/                # API 定义（proto/swagger）
+├── configs/            # 配置文件
+├── scripts/            # 脚本
+├── test/               # 测试
+├── go.mod
+└── Makefile
+```
+
+---
+
+### Q88: 如何写单元测试
+
+```go
+// user_service_test.go
+func TestCreateUser(t *testing.T) {
+    // Arrange
+    mockRepo := &MockUserRepo{}
+    service := NewUserService(mockRepo)
+    
+    mockRepo.On("Create", mock.Anything).Return(nil)
+    
+    // Act
+    err := service.Create(&User{Name: "test"})
+    
+    // Assert
+    assert.NoError(t, err)
+    mockRepo.AssertExpectations(t)
+}
+
+// 表驱动测试
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive", 1, 2, 3},
+        {"negative", -1, -2, -3},
+        {"zero", 0, 0, 0},
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            assert.Equal(t, tt.expected, result)
+        })
+    }
+}
+```
+
+---
+
+### Q89: Mock 怎么做
+
+**常用 Mock 库：**
+
+| 库 | 特点 |
+| :--- | :--- |
+| gomock | 官方，代码生成 |
+| testify/mock | 简单易用 |
+| mockery | 自动生成 mock |
+
+```go
+// 使用 testify/mock
+type MockUserRepo struct {
+    mock.Mock
+}
+
+func (m *MockUserRepo) GetByID(id int64) (*User, error) {
+    args := m.Called(id)
+    return args.Get(0).(*User), args.Error(1)
+}
+
+// 测试中使用
+mockRepo.On("GetByID", int64(1)).Return(&User{ID: 1}, nil)
+```
+
+---
+
+### Q90: CodeReview 关注什么
+
+| 方面 | 关注点 |
+| :--- | :--- |
+| **正确性** | 逻辑是否正确，边界条件 |
+| **安全性** | SQL注入、XSS、权限校验 |
+| **性能** | N+1 查询、大循环、锁粒度 |
+| **可读性** | 命名、注释、函数长度 |
+| **可测试性** | 依赖注入、接口抽象 |
+| **错误处理** | error 是否正确处理 |
+
+---
+
+## 十四、高频考点清单
+
+### 必考
+
+- [ ] slice/map 底层结构和扩容
+- [ ] Goroutine vs 线程、GMP 模型
+- [ ] Channel 底层和操作表
+- [ ] GC 三色标记、写屏障
+- [ ] 逃逸分析
+- [ ] Context 使用
+- [ ] Gin 中间件原理
+
+### 常考
+
+- [ ] defer 执行顺序
+- [ ] select 用法
+- [ ] sync.Mutex vs RWMutex
+- [ ] sync.Pool 原理
+- [ ] pprof 使用
+- [ ] 限流算法
+- [ ] 缓存一致性
+
+### 进阶
+
+- [ ] 系统设计（高并发、高可用）
+- [ ] 熔断降级实现
+- [ ] Goroutine 泄漏检测
+- [ ] 内存泄漏排查
+- [ ] Docker/K8s 部署
+- [ ] 单元测试和 Mock
+

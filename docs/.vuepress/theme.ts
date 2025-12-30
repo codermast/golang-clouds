@@ -25,12 +25,12 @@ export default hopeTheme({
   },
 
   // 发布站点链接
-  hostname: "https://www.codermast.com",
+  hostname: "https://www.golangclouds.com",
 
   // 作者信息
   author: {
-    name: "友人",
-    url: "https://www.codermast.com",
+    name: "Golang Clouds",
+    url: "https://www.golangclouds.com",
     email: "codermast@163.com",
   },
 

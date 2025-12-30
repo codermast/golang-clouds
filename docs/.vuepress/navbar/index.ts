@@ -2,18 +2,67 @@ import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
     {
-        text: "技术教程",
-        icon: "material-symbols:book",
+        text: "Golang指南",
+        prefix: "/golang/",
+        icon: "grommet-icons:golang",
         children: [
-            { text: "Java", link: "/tutorials/java/", icon: "logos:java" },
-            { text: "Golang", link: "/tutorials/golang/", icon: "logos:go" },
-            { text: "Spring系列", link: "/tutorials/spring-series/", icon: "logos:spring-icon" },
-            { text: "数据库", link: "/tutorials/database/", icon: "mdi:database" },
-            { text: "消息队列", link: "/tutorials/mq/", icon: "simple-icons:apachekafka" },
-            { text: "云原生", link: "/tutorials/cloud/", icon: "mdi:cloud" },
-            { text: "前端", link: "/tutorials/front-end/", icon: "logos:html-5" },
-            { text: "开发工具", link: "/tutorials/dev-tools/", icon: "fluent:window-dev-tools-16-filled" },
-            { text: "设计模式", link: "/tutorials/dev-idea/", icon: "mdi:design" },
+            {
+                text: "语法核心",
+                icon: "ri:coreos-fill",
+                children: [
+                    { text: "核心基础", link: "core/", icon: "solar:crown-star-bold" },
+                    { text: "进阶特性", link: "advanced/", icon: "ic:outline-sync-lock" },
+                    { text: "工程化", link: "engineering/", icon: "carbon:build-tool" },
+                    { text: "分布式", link: "distributed/", icon: "zondicons:network" },
+                ]
+            },
+            {
+                text: "Web开发",
+                icon: "mdi:web",
+                children: [
+                    { text: "Gin框架", link: "web/gin/", icon: "simple-icons:lightning" },
+                    { text: "GORM", link: "web/gorm/", icon: "mdi:database" },
+                ]
+            },
+            {
+                text: "社区生态",
+                icon: "raphael:opensource",
+                children: [
+                    { text: "标准库", link: "stdlib/", icon: "majesticons:library" },
+                ]
+            }
+        ]
+    },
+    {
+        text: "后端技术",
+        icon: "mingcute:code-fill",
+        children: [
+            {
+                text: "数据库",
+                prefix: "/tutorials/database/",
+                children: [
+                    { text: "MySQL", link: "mysql/", icon: "tabler:brand-mysql" },
+                    { text: "Redis", link: "redis/", icon: "cib:redis" },
+                ]
+            },
+            {
+                text: "消息队列",
+                prefix: "/tutorials/mq/",
+                children: [
+                    { text: "Kafka", link: "kafka/", icon: "logos:kafka-icon" },
+                    { text: "RabbitMQ", link: "rabbitmq/", icon: "simple-icons:rabbitmq" },
+                    { text: "RocketMQ", link: "rocketmq/", icon: "simple-icons:apacherocketmq" },
+                ]
+            },
+            {
+                text: "云原生",
+                prefix: "/tutorials/cloud/",
+                children: [
+                    { text: "Docker", link: "docker/", icon: "mdi:docker" },
+                    { text: "Kubernetes", link: "kubernetes/", icon: "mdi:kubernetes" },
+                    { text: "Linux", link: "linux/", icon: "mingcute:linux-fill" },
+                ]
+            },
         ]
     },
     {
@@ -22,15 +71,15 @@ export const zhNavbar = navbar([
         prefix: "/interview/",
         children: [
             { text: "Golang", link: "golang", icon: "logos:go" },
-            { text: "Java", link: "java", icon: "logos:java" },
             { text: "MySQL", link: "mysql", icon: "simple-icons:mysql" },
             { text: "Redis", link: "redis", icon: "cib:redis" },
             { text: "RocketMQ", link: "rocketmq", icon: "simple-icons:apacherocketmq" },
+            { text: "Kubernetes", link: "k8s", icon: "mdi:kubernetes" },
         ]
     },
     {
         text: "项目实战",
-        icon: "ph:planet-bold",
+        icon: "ant-design:project-filled",
         link: "/project/",
     },
 ]);

@@ -1,13 +1,13 @@
 ---
 home: true
 icon: home
-title: 「编程指南」计算机全栈学习指南
+title: 「Golang Clouds」云原生全栈学习指南
 heroImage: /logo.png
-heroText: 友人的编程指南
-tagline: 「编程指南」包含完整的编程学习指南、计算机基础、数据库、项目实战、面试经验等知识教程，涵盖了大部分程序员所需要掌握的核心知识！
+heroText: Golang Clouds
+tagline: 专注于 Golang 云原生技术栈，涵盖 Go 语言核心、云原生技术、数据库、消息队列、项目实战等知识教程！
 lang : zh-CN
-bgImage: https://www.codermast.com/assets/bg/6-light.svg
-bgImageDark: https://www.codermast.com/assets/bg/6-dark.svg
+bgImage: /assets/bg/6-light.svg
+bgImageDark: /assets/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
   
@@ -27,16 +27,16 @@ highlights:
   - header : 
     description: 知识图谱，快速找到你想要学习的资源
     image: /assets/image/index-filled.svg
-    bgImage: https://www.codermast.com/assets/bg/2-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/2-dark.svg
+    bgImage: /assets/bg/2-light.svg
+    bgImageDark: /assets/bg/2-dark.svg
     bgImageStyle:
       background-repeat: repeat
       background-size: initial
     features:
-      - title: Java
-        icon: cib:java
-        details: Java 是一种广泛使用的编程语言，具有跨平台特性和面向对象的设计，广泛应用于企业级应用、移动应用（如 Android 应用）和大规模系统。
-        link: /java/
+      - title: Golang
+        icon: devicon-plain:go
+        details: Go 是 Google 开发的开源编程语言，具有高并发、高性能的特点，广泛应用于云原生、微服务和后端开发领域。
+        link: /golang/
 
       - title: MySQL
         icon: tabler:brand-mysql
@@ -95,93 +95,93 @@ highlights:
 
 
   - header: Golang 学习路线
-    description: 增强站点与用户体验的高级功能
+    description: 从入门到精通的 Go 语言学习路线
     image: /assets/image/go.svg
-    bgImage: https://www.codermast.com/assets/bg/3-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/3-dark.svg
+    bgImage: /assets/bg/3-light.svg
+    bgImageDark: /assets/bg/3-dark.svg
     highlights:
       - title: 核心基础
         icon: ri:coreos-fill
-        details: 将最终生成的网页针对搜索引擎进行优化。
-        link: /golang/core/basic/
+        details: Go 语言基础语法、数据类型、流程控制、函数与方法
+        link: /golang/core/
 
       - title: 并发编程
         icon: ic:outline-sync-lock
-        details: 自动为你的网站生成 Sitemap
-        link: /golang/core/concurrent/
+        details: Goroutine、Channel、sync 包、Context 等并发原语
+        link: /golang/advanced/
 
-      - title: 网络编程
+      - title: Web 开发
         icon: zondicons:network
-        details: 生成你的 Feed，并通知你的用户订阅它
-        link: /golang/core/network/
+        details: Gin 框架、GORM、RESTful API 开发
+        link: /golang/web/
 
-      - title: 性能调优
-        icon: icon-park:smart-optimization
-        details: 让你的网站更像一个 APP
-        link: /golang/core/performance-optimization/
+      - title: 标准库
+        icon: majesticons:library
+        details: Go 标准库常用包详解与最佳实践
+        link: /golang/stdlib/
         
   - header: 后端技术
     description: 后端必学的一些主流技术
     image: /assets/image/box.svg
-    bgImage: https://www.codermast.com/assets/bg/4-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/4-dark.svg
+    bgImage: /assets/bg/4-light.svg
+    bgImageDark: /assets/bg/4-dark.svg
     highlights:
       - title: MySQL 数据库
         icon: tabler:brand-mysql
-        details: 完全可定制的导航栏以及改进的移动端外观
-        link: /backend-tech/database/mysql/
+        details: 关系型数据库核心知识，SQL 优化与索引设计
+        link: /tutorials/database/mysql/
 
       - title: Redis 数据库
         icon: cib:redis
-        details: 从文档标题或文件结构中自动生成侧边栏
-        link: /backend-tech/database/redis/
+        details: 高性能缓存数据库，数据结构与应用场景
+        link: /tutorials/database/redis/
 
       - title: Linux
         icon: mingcute:linux-fill
-        details: 添加幻灯片页面以显示你喜欢的内容
-        link: /backend-tech/general/linux/
+        details: Linux 系统运维、常用命令与服务部署
+        link: /tutorials/cloud/linux/
 
       - title: Docker
         icon: uil:docker
-        details: 添加幻灯片页面以显示你喜欢的内容
-        link: /backend-tech/cloud-native/docker/
+        details: 容器化技术，镜像构建与容器编排
+        link: /tutorials/cloud/docker/
 
       - title: 更多
         icon: icon-park-solid:more-four
-        details: RTL 布局，打印支持，全局按钮等
-        link: /backend-tech/
+        details: Kubernetes、消息队列、微服务等更多技术
+        link: /tutorials/
 
   - header: 计算机基础
     description: 掌握扎实的计算机基础知识能够让你在学习和开发过程事半功倍
     image: /assets/image/computer.svg
-    bgImage: https://www.codermast.com/assets/bg/9-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/9-dark.svg
+    bgImage: /assets/bg/9-light.svg
+    bgImageDark: /assets/bg/9-dark.svg
     highlights:
       - title: 数据结构
         icon: carbon:data-structured
-        details: 可以自由切换浅色模式与深色模式
+        details: 链表、树、图、栈、队列等核心数据结构
         link: /computer-basic/datastruct/
 
       - title: 计算机网络
         icon: ph:network-bold
-        details: 支持自定义主题色并允许用户在预设的主题颜色之间切换
+        details: TCP/IP、HTTP、网络协议与分层模型
         link: /computer-basic/computer-network/
 
       - title: 操作系统
         icon: icon-park-solid:coordinate-system
-        details: RTL 布局，打印支持，全局按钮等
+        details: 进程管理、内存管理、文件系统等核心概念
         link: /computer-basic/operating-system/
 
       - title: 计算机组成原理
         icon: el:cog
-        details: RTL 布局，打印支持，全局按钮等
+        details: CPU、存储器、指令系统与计算机体系结构
         link: /computer-basic/computer-composition/
 
 
   - header: 项目实战
     image: /assets/image/features.svg
-    bgImage: https://www.codermast.com/assets/bg/1-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/1-dark.svg
+    bgImage: /assets/bg/1-light.svg
+    bgImageDark: /assets/bg/1-dark.svg
     features:
       - title: Pont SSH
         icon: mdi:powershell
@@ -206,29 +206,29 @@ highlights:
   - header: 开源生态
     description: Golang 社区的开源框架、开源库、开源项目
     image: /assets/image/open-source.svg
-    bgImage: https://www.codermast.com/assets/bg/5-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/5-dark.svg
+    bgImage: /assets/bg/5-light.svg
+    bgImageDark: /assets/bg/5-dark.svg
     highlights:
       - title: 标准库
         icon: majesticons:library
-        details: 通过文章的日期、标签和分类展示文章
-        link: /golang/community/standard-library/
+        details: Go 标准库详解，覆盖 io、net、http、encoding 等常用包
+        link: /golang/stdlib/
 
       - title: 开源库
         icon: fontisto:ampproject
-        details: 全新博客主页
-        link: /golang/community/open-library/
+        details: 优秀的第三方 Go 开源库推荐与使用指南
+        link: /golang/
 
       - title: 开源项目
         icon: raphael:opensource
-        details: 自定义名称、头像、座右铭和社交媒体链接
-        link: /golang/community/open-project/
+        details: 值得学习的 Go 开源项目源码分析
+        link: /golang/
 
         
   - header: 参与贡献
     image: /assets/image/github-dark.svg
-    bgImage: https://www.codermast.com/assets/bg/4-light.svg
-    bgImageDark: https://www.codermast.com/assets/bg/4-dark.svg
+    bgImage: /assets/bg/4-light.svg
+    bgImageDark: /assets/bg/4-dark.svg
     highlights:
       - title: 本项目开源至：<img src="/assets/image/github-repo.svg" />
         link : https://github.com/codermast/CoderMast-Notes

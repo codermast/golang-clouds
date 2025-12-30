@@ -63,31 +63,29 @@ Go（又称 Golang）是 Google 开发的一种静态类型、编译型编程语
 | 6    | 接口     | 接口定义、实现、类型断言           | [进入学习](./core/go-interface.md) |
 | 7    | 错误处理 | error、panic、recover              | [进入学习](./core/go-error.md)     |
 | 8    | 包管理   | Go Modules、依赖管理               | [进入学习](./core/go-module.md)    |
-| 9    | 标准库   | fmt、strings、time、net/http 等    | [进入学习](./core/go-stdlib.md)    |
 
 ### 第二阶段：Go 并发与底层
 
 > 目标：深入理解 Go 并发模型和运行时机制
 
-| 序号 | 主题     | 内容                               | 链接                                  |
-| :--- | :------- | :--------------------------------- | :------------------------------------ |
-| 1    | 并发基础 | Goroutine、Channel、sync 包        | [进入学习](./advanced/concurrency.md) |
-| 2    | GMP 调度 | G、M、P 概念、调度流程、抢占式调度 | [进入学习](./advanced/gmp.md)         |
-| 3    | 内存模型 | 内存分配、逃逸分析、内存对齐       | [进入学习](./advanced/memory.md)      |
-| 4    | 垃圾回收 | 三色标记、写屏障、GC 调优          | [进入学习](./advanced/gc.md)          |
-| 5    | 性能分析 | pprof、trace、benchmark            | [进入学习](./advanced/profiling.md)   |
+| 序号 | 主题     | 内容                               | 链接                                       |
+| :--- | :------- | :--------------------------------- | :----------------------------------------- |
+| 1    | 并发基础 | Goroutine、Channel、sync 包        | [进入学习](./advanced/go-concurrency.md)   |
+| 2    | GMP 调度 | G、M、P 概念、调度流程、抢占式调度 | [进入学习](./advanced/gmp.md)              |
+| 3    | 内存模型 | 内存分配、逃逸分析、内存对齐       | [进入学习](./advanced/memory.md)           |
+| 4    | 垃圾回收 | 三色标记、写屏障、GC 调优          | [进入学习](./advanced/gc.md)               |
+| 5    | 性能分析 | pprof、trace、benchmark            | [进入学习](./advanced/profiling.md)        |
 
 ### 第三阶段：Go Web 开发
 
 > 目标：能够使用 Go 开发完整的 Web 应用
 
-| 序号 | 主题      | 内容                         | 链接                               |
-| :--- | :-------- | :--------------------------- | :--------------------------------- |
-| 1    | Gin 入门  | 路由、请求处理、响应         | [进入学习](./web/gin-start.md)     |
-| 2    | Gin 进阶  | 中间件、参数校验、错误处理   | [进入学习](./web/gin-advanced.md)  |
-| 3    | GORM 入门 | 连接、模型定义、CRUD 操作    | [进入学习](./web/gorm-start.md)    |
-| 4    | GORM 进阶 | 关联查询、事务、Hook         | [进入学习](./web/gorm-advanced.md) |
-| 5    | 项目实战  | 项目结构、分层架构、最佳实践 | [进入学习](./web/project.md)       |
+| 序号 | 主题        | 内容                         | 链接                                   |
+| :--- | :---------- | :--------------------------- | :------------------------------------- |
+| 1    | Gin 快速开始 | 安装、路由、请求处理         | [进入学习](./web/gin/quickstart.md)    |
+| 2    | Gin 中间件   | 中间件、参数校验、错误处理   | [进入学习](./web/gin/middleware.md)    |
+| 3    | GORM 入门    | 连接、模型定义、CRUD 操作    | [进入学习](./web/gorm/quickstart.md)   |
+| 4    | GORM 进阶    | 关联查询、事务、Hook         | [进入学习](./web/gorm/association.md)  |
 
 ### 第四阶段：Go 分布式
 
@@ -116,12 +114,7 @@ Go（又称 Golang）是 Google 开发的一种静态类型、编译型编程语
 
 > 目标：掌握 Go 面试高频考点
 
-| 序号 | 主题   | 内容                             | 链接                                   |
-| :--- | :----- | :------------------------------- | :------------------------------------- |
-| 1    | 基础篇 | 数据类型、切片、Map、接口、defer | [进入学习](./interview/basic.md)       |
-| 2    | 并发篇 | Goroutine、Channel、GMP、锁      | [进入学习](./interview/concurrency.md) |
-| 3    | 内存篇 | 内存分配、逃逸分析、GC、性能优化 | [进入学习](./interview/memory.md)      |
-| 4    | 项目篇 | 框架、中间件、微服务、场景设计   | [进入学习](./interview/project.md)     |
+全部面试内容请参考：[Golang 八股文](/interview/golang)
 
 ## 为什么学 Go？
 

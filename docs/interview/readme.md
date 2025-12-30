@@ -16,12 +16,11 @@ icon: icon-park-solid:tips
 | 专题       | 内容                                | 链接                      |
 | :--------- | :---------------------------------- | :------------------------ |
 | Golang     | 基础、并发、GMP、内存、GC、项目实战 | [进入学习](./golang.md)   |
-| Java       | 基础、集合、JVM、并发、Spring       | [进入学习](./java.md)     |
 | MySQL      | 索引、事务、锁、优化、主从          | [进入学习](./mysql.md)    |
 | Redis      | 数据类型、持久化、集群、缓存问题    | [进入学习](./redis.md)    |
 | RocketMQ   | 顺序/延迟/事务消息、可靠性、存储    | [进入学习](./rocketmq.md) |
-| 计算机网络 | TCP/UDP、HTTP、HTTPS                | 敬请期待                  |
-| 操作系统   | 进程、线程、内存、IO                | 敬请期待                  |
+| Kubernetes | Pod、Service、Deployment、调度      | [进入学习](./k8s.md)      |
+| 计算机基础 | 常见的锁策略、系统设计思想          | [进入学习](./basic.md)    |
 
 ## 面试技巧
 

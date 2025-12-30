@@ -444,11 +444,58 @@ redis-cli --cluster reshard existing_host:port
 
 ---
 
-## 七、高频考点清单
+## 七、常用命令
+
+### Q25: Redis 各数据类型常用命令汇总
+
+| 分类 | 命令 | 说明 |
+| :--- | :--- | :--- |
+| **String** | `SET` / `GET` | 设置/获取值 |
+| | `INCR` / `DECR` | 自增/自减 |
+| | `SETNX` | Key 不存在才设置（分布式锁核心） |
+| | `SETEX` | 设置值并指定过期时间（秒） |
+| | `MSET` / `MGET` | 批量设置/获取 |
+| **Hash** | `HSET` / `HGET` | 设置/获取字段 |
+| | `HMSET` / `HMGET` | 批量操作字段 |
+| | `HGETALL` | 获取所有字段和值 |
+| | `HDEL` | 删除字段 |
+| **List** | `LPUSH` / `RPUSH` | 左推/右推入队列 |
+| | `LPOP` / `RPOP` | 左弹/右弹出队列 |
+| | `LRANGE` | 获取指定范围元素（如 0 -1） |
+| | `BLPOP` / `BRPOP` | 阻塞式弹出（消息队列常用） |
+| **Set** | `SADD` / `SREM` | 添加/删除元素 |
+| | `SMEMBERS` | 获取所有元素 |
+| | `SISMEMBER` | 判断元素是否存在 |
+| | `SINTER` / `SUNION` | 交集 / 并集 |
+| **ZSet** | `ZADD` | 添加元素（需指定 score） |
+| | `ZRANGE` | 按分数从小到大获取 |
+| | `ZREVRANGE` | 按分数从大到小获取 |
+| | `ZSCORE` | 获取元素分数 |
+| **全局** | `DEL` | 删除 Key |
+| | `EXPIRE` / `TTL` | 设置过期时间 / 查看剩余时间 |
+| | `EXISTS` | 判断 Key 是否存在 |
+| | `KEYS` | 查找所有符合模式的 Key（生产禁用） |
+| | `SCAN` | 渐进式遍历 Key（推荐） |
+
+---
+
+### Q26: KEYS 和 SCAN 的区别
+
+| 特性 | KEYS pattern | SCAN cursor |
+| :--- | :--- | :--- |
+| **阻塞性** | ✅ 阻塞主线程 | ❌ 非阻塞，分批进行 |
+| **执行效率** | O(N) 一次性返回 | O(1) 每次返回少量数据 |
+| **生产环境** | ⚠️ 禁止使用 | ✅ 推荐使用 |
+| **数据一致性** | 结果准确 | 可能会有重复或漏掉（期间有增删） |
+
+---
+
+## 八、高频考点清单
 
 ### 必考
 
 - [ ] 五种数据类型及底层实现
+- [ ] 常见数据类型命令（SETNX, HGETALL, ZRANGE等）
 - [ ] RDB vs AOF，同步策略
 - [ ] 缓存穿透/击穿/雪崩解决方案
 - [ ] 分布式锁正确实现
@@ -458,6 +505,7 @@ redis-cli --cluster reshard existing_host:port
 
 - [ ] ZSet 为什么用跳表
 - [ ] AOF 重写与混合持久化
+- [ ] KEYS vs SCAN 的区别
 - [ ] Cluster 槽位与 hash tag
 - [ ] 内存淘汰策略
 - [ ] 大 key 处理

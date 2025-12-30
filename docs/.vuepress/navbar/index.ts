@@ -34,8 +34,8 @@ export const zhNavbar = navbar([
         ]
     },
     {
-        text: "后端技术",
-        icon: "mingcute:code-fill",
+        text: "云原生",
+        icon: "carbon:cloud-services",
         children: [
             {
                 text: "数据库",
@@ -55,7 +55,7 @@ export const zhNavbar = navbar([
                 ]
             },
             {
-                text: "云原生",
+                text: "系统与容器",
                 prefix: "/tutorials/cloud/",
                 children: [
                     { text: "Docker", link: "docker/", icon: "mdi:docker" },

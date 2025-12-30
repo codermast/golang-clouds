@@ -9,12 +9,12 @@ export default defineUserConfig({
   locales: {
     "/": {
       lang: "zh-CN",
-      title: "Golang Clouds",
-      description: "Golang Clouds - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
+      title: "Golang 全栈指南",
+      description: "Golang 全栈指南 - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
     },
   },
-  title: "Golang Clouds",
-  description: "Golang Clouds - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
+  title: "Golang 全栈指南",
+  description: "Golang 全栈指南 - 专注 Golang 云原生技术栈，涵盖 Go 语言、Docker、Kubernetes、微服务等核心技术！",
   head: [
     ["meta", { name: "keywords", content: "Golang,Go语言,云原生,Docker,Kubernetes,微服务,MySQL,Redis,gRPC" }],
     ["meta", { name: "baidu-site-verification", content: "codeva-GfqTd2Cs0w" }],

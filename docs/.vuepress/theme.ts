@@ -29,8 +29,8 @@ export default hopeTheme({
 
   // 作者信息
   author: {
-    name: "Golang Clouds",
-    url: "https://www.golangclouds.com",
+    name: "友人",
+    url: "https://www.codermast.com",
     email: "codermast@163.com",
   },
 
@@ -40,7 +40,7 @@ export default hopeTheme({
   logo: "/logo.png",
 
   // 文档仓库地址
-  repo: "https://github.com/codermast/codermast-notes",
+  repo: "https://github.com/codermast/golang-clouds",
 
   // 文档在仓库中的目录
   docsDir: "docs",

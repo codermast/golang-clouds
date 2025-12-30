@@ -1,10 +1,24 @@
 // place your custom styles here
 .vp-hero-info-wrapper {
-    min-height: 600px
+    min-height: 600px;
 }
 
 .vp-site-name {
     font-weight: bold;
+}
+
+// 手机端显示站点名称但限制宽度
+@media (max-width: 719px) {
+    .vp-site-name {
+        display: inline-block !important;
+        max-width: 120px;
+        font-size: 0.85rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        line-height: normal;
+    }
 }
 
 .transparent-navbar .vp-dropdown-wrapper .vp-dropdown-title .vp-dropdown {

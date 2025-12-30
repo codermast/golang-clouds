@@ -1,9 +1,9 @@
 ---
 home: true
 icon: home
-title: 「Golang Clouds」云原生全栈学习指南
+title: 「Golang 全栈指南」云原生全栈学习指南
 heroImage: /logo.png
-heroText: Golang Clouds
+heroText: Golang 全栈指南
 tagline: 专注于 Golang 云原生技术栈，涵盖 Go 语言核心、云原生技术、数据库、消息队列、项目实战等知识教程！
 lang : zh-CN
 bgImage: /assets/bg/6-light.svg
@@ -27,11 +27,11 @@ highlights:
   - header : 
     description: 知识图谱，快速找到你想要学习的资源
     image: /assets/image/index-filled.svg
-    bgImage: /assets/bg/2-light.svg
-    bgImageDark: /assets/bg/2-dark.svg
-    bgImageStyle:
-      background-repeat: repeat
-      background-size: initial
+    # bgImage: /assets/bg/2-light.svg
+    # bgImageDark: /assets/bg/2-dark.svg
+    # bgImageStyle:
+    #   background-repeat: repeat
+    #   background-size: initial
     features:
       - title: Golang
         icon: devicon-plain:go
@@ -235,6 +235,5 @@ highlights:
       - title: 如果你有兴趣参与本站的开发维护，欢迎在本项目仓库提交PR，感谢您！ 
 
 copyright: false
-footer:  <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="nofollow"><img src="/assets/images/upyun-footer.png" style="width:240px;"/></a><hr><a href="https://vuepress-theme-hope.github.io/v2/" target="_blank" rel="nofollow">VuePress Theme Hope</a> &#124 Copyright © 2024 CoderMast
- &#124 <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">陕ICP备20010345号-5</a>
+footer:  <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="nofollow"><img src="/assets/images/upyun-footer.png" style="width:240px;"/></a><hr>Copyright © 2024 <a href="https://www.codermast.com" target="_blank">友人</a>
 ---

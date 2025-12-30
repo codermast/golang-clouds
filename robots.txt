@@ -1,4 +1,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://www.codermast.com/sitemap.xml
+Sitemap: https://www.golangclouds.com/sitemap.xml

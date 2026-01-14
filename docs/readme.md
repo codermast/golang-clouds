@@ -183,25 +183,25 @@ highlights:
     bgImage: /assets/bg/1-light.svg
     bgImageDark: /assets/bg/1-dark.svg
     features:
-      - title: Pont SSH
-        icon: mdi:powershell
-        details: 基于 Wails 的开源、轻量级、跨平台 SSH 连接客户端。
-        link: /projects/pont-ssh/
+      - title: Go CLI Todo
+        icon: mdi:console
+        details: 命令行任务管理工具。技术栈：Cobra + Viper + SQLite，实现多用户、定时提醒、优先级排序、导入导出功能。
+        link: /projects/go-cli-todo/
 
-      - title: Conch DB
-        icon: lucide:shell
-        details: 基于 Wails 的跨平台数据库可视化管理客户端。
-        link: /projects/conch-db/
+      - title: Go REST API
+        icon: mdi:api
+        details: 企业级 RESTful API 项目。技术栈：Gin + GORM + JWT + Redis，实现 RBAC 权限、接口限流、Swagger 文档、单元测试覆盖。
+        link: /projects/go-rest-api/
 
-      - title: Easy Chat
-        icon: fluent:chat-24-filled
-        details: 基于 Golang 的 ChatGPT 反向代理服务，简单易部署。
-        link: /projects/easy-chat/
+      - title: Go Cache
+        icon: mdi:memory
+        details: 高性能分布式缓存系统。技术栈：原生 Go 网络编程，实现 LRU/LFU 淘汰策略、一致性哈希、Raft 共识算法、热点探测与防穿透。
+        link: /projects/go-cache/
 
-      - title: Quick RPC
-        icon: devicon-plain:trpc
-        details: 使用原生 Golang 的 HTTP 开发的一个 RPC 框架
-        link: /projects/quick-rpc/
+      - title: Go Microservice
+        icon: mdi:kubernetes
+        details: 云原生微服务电商平台。技术栈：gRPC + Kafka + Consul + Jaeger + K8s，实现服务网格、熔断降级、分布式事务、可观测性全链路。
+        link: /projects/go-microservice/
 
   - header: 开源生态
     description: Golang 社区的开源框架、开源库、开源项目
@@ -230,10 +230,10 @@ highlights:
     bgImage: /assets/bg/4-light.svg
     bgImageDark: /assets/bg/4-dark.svg
     highlights:
-      - title: 本项目开源至：<img src="/assets/image/github-repo.svg" />
-        link : https://github.com/codermast/CoderMast-Notes
+      - title: 本项目开源至：<img src="https://img.shields.io/github/stars/codermast/golang-clouds?style=flat&logo=github&logoColor=white&label=Stars&color=00ADD8" alt="GitHub Stars"  />
+        link : https://github.com/codermast/golang-clouds
       - title: 如果你有兴趣参与本站的开发维护，欢迎在本项目仓库提交PR，感谢您！ 
 
 copyright: false
-footer:  <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="nofollow"><img src="/assets/images/upyun-footer.png" style="width:240px;"/></a><hr>Copyright © 2024 <a href="https://www.codermast.com" target="_blank">友人</a>
+footer:  <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="nofollow"><img src="/assets/images/upyun-footer.png" style="width:240px;"/></a><hr>Copyright © 2026 <a href="https://www.codermast.com" target="_blank">友人</a>
 ---
